@@ -220,3 +220,42 @@ fig_anchors.add_annotation(x=5000, yref='paper', y=0.7, text="$5k Peak", showarr
 fig_anchors.show()
 
 ## Word cloud
+from collections import Counter
+import re
+successful_titles = df[df['project_success'] == True]['project_name'].astype(str).str.lower()
+
+# 3. Simple Text Processing (Tokenizing)
+# Define common "Stopwords" to filter out (the, and, for, etc.)
+stopwords = {'the', 'and', 'for', 'your', 'with', 'from', 'this', 'that', 'project', 'new', 'help', 'make'}
+
+all_words = []
+for title in successful_titles:
+    # Remove special characters and split into words
+    words = re.findall(r'\w+', title)
+    all_words.extend([w for w in words if w not in stopwords and len(w) > 2])
+
+# 4. Count top 25 most frequent words
+word_counts = Counter(all_words).most_common(25)
+df_words = pd.DataFrame(word_counts, columns=['Keyword', 'Frequency'])
+
+# 5. Create Plotly Bar Chart
+fig_keywords = px.bar(
+    df_words, 
+    x='Frequency', 
+    y='Keyword', 
+    orientation='h',
+    title='Keywords of Success: Top Terms in Funded Project Titles',
+    color='Frequency',
+    color_continuous_scale='Viridis',
+    template='plotly_white'
+)
+
+# 6. Styling
+fig_keywords.update_layout(
+    yaxis={'categoryorder':'total ascending'}, # Puts highest frequency at the top
+    title_x=0.5,
+    showlegend=False,
+    height=700
+)
+
+fig_keywords.show()

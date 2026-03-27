@@ -117,6 +117,7 @@ fig_lollipop.add_trace(go.Scatter(
 fig_lollipop.update_layout(
     title='Top Cities: Ranking by Efficiency (Success Rate)',
     title_x=0.5,
+    title_font_size=20,
     xaxis_title='Success Rate (%)',
     yaxis_title='City',
     template='plotly_white',
@@ -160,6 +161,7 @@ fig.add_trace(go.Bar(
 
 # 6. Set to 'stack' mode and style
 fig.update_layout(
+    title_font_size=20,
     title='Top Cities: Success vs. Fail Volume Comparison',
     title_x=0.5,
     xaxis_title='City',
