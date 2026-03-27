@@ -1,5 +1,5 @@
 id: 2c6234a7-a47c-449b-9550-91fa2c08efad
-name: FundThis
+name: PleaseFundThis
 project_id: d8d96dba-e3a1-45cb-a832-4a46285bead8
 global_imports: []
 python_global_imports: "import pandas as pd\nimport numpy as np\nimport os, os.path\n\
@@ -67,16 +67,17 @@ layers:
   - auto_size: false
     canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
     compute_settings: null
-    description: 'Creates interactive visualizations of funding distribution across
-      project categories: sunburst and treemap charts showing major-to-minor category
-      hierarchy, plus ranked bar charts for top funding categories and sub-categories.'
+    description: 'Generates interactive visualizations of funding patterns across
+      categories: sunburst/treemap hierarchies, ranked bar charts by major/minor categories,
+      pledger distribution treemap, goal distribution ridge plot, and anchoring histogram
+      analyzing psychological pricing effects.'
     height: 1000
     id: b0648ba8-871e-4418-829b-a67a6923abab
     layer_id: 5a668b14-f485-4001-8807-f07ccac50155
     name: fund_hierarchy_sunburst
     parent_id: null
     properties: {}
-    status: 1
+    status: 3
     type: 1
     variables: null
     width: 1600
