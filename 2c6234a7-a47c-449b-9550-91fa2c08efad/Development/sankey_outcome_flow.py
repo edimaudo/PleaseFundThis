@@ -1,14 +1,17 @@
+##=====================
 ## Flow and Distribution
+##=====================
+
+####################
+## Sankey chart major category --> minor category --> success
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
-## Sankey chart major category --> minor category --> success
 top_minors = df['minor_category'].value_counts().nlargest(30).index
 df_filtered = df[df['minor_category'].isin(top_minors)].copy()
-
 # Map outcomes to strings
 df_filtered['outcome'] = df_filtered['project_success'].map({True: 'Successful', False: 'Failed'})
-
-# 3. Create Node List and Mapping
+# Create Node List and Mapping
 majors = sorted(df_filtered['major_category'].unique().tolist())
 minors = sorted(df_filtered['minor_category'].unique().tolist())
 outcomes = ['Successful', 'Failed']
@@ -40,7 +43,6 @@ for _, row in flow2.iterrows():
     else:
         link_colors.append("rgba(239, 85, 59, 0.5)")
 
-# 4. Create the Figure
 fig_sankey = go.Figure(data=[go.Sankey(
     node = dict(
       pad = 30,         # Increased padding makes nodes easier to click/hover
@@ -57,7 +59,6 @@ fig_sankey = go.Figure(data=[go.Sankey(
     )
 )])
 
-# 5. Styling for "Mobile-Friendly" Clarity
 fig_sankey.update_layout(
     title_text="<b>Project Flow: From Category to Success</b>",
     title_x=0.5,
@@ -69,13 +70,15 @@ fig_sankey.update_layout(
 
 fig_sankey.show()
 
+####################
 ## Parallel Categories Diagram
-# We map the boolean values to descriptive strings for a cleaner UI
+####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['Video?'] = df['project_has_video'].map({True: 'Has Video', False: 'No Video'})
 df['FB Page?'] = df['project_has_facebook_page'].map({True: 'Has FB Page', False: 'No FB Page'})
 df['Outcome'] = df['project_success'].map({True: 'Successful', False: 'Failed'})
 
-# 3. Create the Parallel Categories Plot
 fig_parallel = px.parallel_categories(
     df, 
     dimensions=['Video?', 'FB Page?', 'Outcome'],
@@ -86,7 +89,6 @@ fig_parallel = px.parallel_categories(
     template='plotly_white'
 )
 
-# 4. Styling for Clarity
 fig_parallel.update_layout(
     title_x=0.5,
     margin=dict(l=100, r=100, t=100, b=100),
@@ -96,7 +98,11 @@ fig_parallel.update_layout(
 
 fig_parallel.show()
 
+####################
 ## Whales vs the crowd
+####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 def get_quadrant(row):
     avg_pledge = row['amt_pledged_$'] / max(1, row['number_of_pledgers'])
     high_backers = row['number_of_pledgers'] > 500
@@ -113,7 +119,6 @@ def get_quadrant(row):
 df['Project_Type'] = df.apply(get_quadrant, axis=1)
 df['Outcome'] = df['project_success'].map({True: 'Successful', False: 'Failed'})
 
-# 3. Create a Simple Percentage Bar Chart
 # This shows the "Success Rate" for each of the 4 buckets
 quadrant_stats = df.groupby('Project_Type')['project_success'].mean().reset_index()
 quadrant_stats['Success_Rate_%'] = quadrant_stats['project_success'] * 100
@@ -134,13 +139,13 @@ fig_quadrant = px.bar(
 fig_quadrant.update_layout(showlegend=False, height=400,    title_x=0.5,)
 fig_quadrant.show()
 
-# Density price rewards
+####################
+# Density pledge rewards (low)
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 # Clean Currency
 df['lowest_pledge_reward_$'] = pd.to_numeric(df['lowest_pledge_reward_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
-
-# 2. THE FIX: Separate by Project Result (Your provided logic)
 # We filter to $200 for a readable linear scale
 df_low = df[df['lowest_pledge_reward_$'] <= 10000]
 success_df = df_low[df_low['project_success'] == True]
@@ -148,26 +153,24 @@ failed_df = df_low[df_low['project_success'] == False]
 
 fig_low = go.Figure()
 
-# Add Successful Trace
 fig_low.add_trace(go.Violin(
     y=success_df['lowest_pledge_reward_$'],
-    name='Successful',
+    name='Successful Projects',
     line_color='#00CC96',
     box_visible=True,
     meanline_visible=True
 ))
 
-# Add Unsuccessful Trace
 fig_low.add_trace(go.Violin(
     y=failed_df['lowest_pledge_reward_$'],
-    name='Unsuccessful',
+    name='Unsuccessful Projects',
     line_color='#EF553B',
     box_visible=True,
     meanline_visible=True
 ))
 
 fig_low.update_layout(
-    title={'text': 'Entry Level Pledge Density (Up to $200)', 'x': 0.5},
+    title={'text': 'Entry Level Pledge Rewards Density', 'x': 0.5},
     yaxis_title="Pledge Amount ($)",
     template='plotly_white'
 )
@@ -176,40 +179,37 @@ fig_low.show()
 
 
 
-
-# 1. Clean Currency for High Tier
+####################
+# Density pledge rewards (high)
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 df['highest_pledge_reward_$'] = pd.to_numeric(df['highest_pledge_reward_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
-
-# 2. Separate by Project Result (Your provided logic)
-# We filter to $1000 to maintain a non-technical linear scale
+# Separate by Project Result (Your provided logic)
 df_high = df[df['highest_pledge_reward_$'] <= 10000]
 success_df_h = df_high[df_high['project_success'] == True]
 failed_df_h = df_high[df_high['project_success'] == False]
 
 fig_high = go.Figure()
 
-# Add Successful Trace
 fig_high.add_trace(go.Violin(
     y=success_df_h['highest_pledge_reward_$'],
-    name='Successful',
+    name='Successful Projects',
     line_color='#00CC96',
     box_visible=True,
     meanline_visible=True
 ))
 
-# Add Unsuccessful Trace
 fig_high.add_trace(go.Violin(
     y=failed_df_h['highest_pledge_reward_$'],
-    name='Unsuccessful',
+    name='Unsuccessful Projects',
     line_color='#EF553B',
     box_visible=True,
     meanline_visible=True
 ))
 
 fig_high.update_layout(
-    title={'text': 'High-Tier Pledge Density', 'x': 0.5},
+    title={'text': 'High-Tier Pledge Rewards Density', 'x': 0.5},
     yaxis_title="Pledge Amount ($)",
     template='plotly_white'
 )
