@@ -31,17 +31,35 @@ layers:
   - auto_size: false
     canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
     compute_settings: null
-    description: Analyzes seasonal crowdfunding trends and funding gaps. Creates visualizations
-      showing success rates by month and day of week, compares median funding goals
-      vs. pledged amounts by category, and identifies top 20 overfunded projects using
-      dumbbell charts.
+    description: Analyzes crowdfunding project success patterns by segmenting projects
+      into overachievers, standard winners, and failures, comparing update frequency
+      and pledge tier complexity. Visualizes top-performing cities by success rate
+      and identifies key behavioral drivers behind viral campaign growth.
+    height: 1000
+    id: 0ed1ec5e-dbf7-4c41-971a-e1630c16d84b
+    layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+    name: project_success_analytics
+    parent_id: null
+    properties: {}
+    status: 1
+    type: 1
+    variables: null
+    width: 1600
+    x: 0
+    y: 1500
+  - auto_size: false
+    canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+    compute_settings: null
+    description: Analyzes seasonal crowdfunding trends across months & days, plus
+      funding gaps by category and top 20 overfunded projects with interactive Plotly
+      visualizations.
     height: 1000
     id: 19ddc02f-82d0-4745-97cd-184f98b3d0c4
     layer_id: 5a668b14-f485-4001-8807-f07ccac50155
     name: seasonal_success_trends
     parent_id: null
     properties: {}
-    status: 3
+    status: 1
     type: 1
     variables: null
     width: 1600
@@ -50,16 +68,17 @@ layers:
   - auto_size: false
     canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
     compute_settings: null
-    description: Analyzes crowdfunding success drivers through correlation matrices,
-      scatter plots, and box plots. Evaluates impact of updates, videos, social media,
-      and backer value across project categories to identify key funding success factors.
+    description: 'Generates 8 interactive visualizations analyzing crowdfunding success
+      drivers: correlation heatmap of key metrics, communication ROI via project updates,
+      impact of videos & social media on funding, network size effects, goal/duration
+      "danger zones," and category-level backer value comparisons.'
     height: 1000
     id: 1ec56b5b-da47-43ef-9fd8-c0eb55134732
     layer_id: 5a668b14-f485-4001-8807-f07ccac50155
     name: correlation_heatmap_analysis
     parent_id: null
     properties: {}
-    status: 3
+    status: 1
     type: 1
     variables: null
     width: 1600
@@ -68,19 +87,17 @@ layers:
   - auto_size: false
     canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
     compute_settings: null
-    description: 'Generates six interactive visualizations analyzing crowdfunding
-      project outcomes: (1) Sankey diagram showing category flow to success/failure,
-      (2) parallel categories chart examining video and Facebook influence, (3) bar
-      chart ranking project types by success rate (unicorns vs. whales vs. crowd),
-      and (4-5) violin plots comparing entry-level and high-tier pledge amounts between
-      successful and failed projects.'
+    description: "Generates comprehensive visual analytics of crowdfunding project\
+      \ outcomes, including flow diagrams (major category \u2192 minor category \u2192\
+      \ success), success path analysis by features (video, Facebook), project type\
+      \ performance comparison, and pledge tier distribution patterns."
     height: 1000
     id: 60f305c5-abb4-4997-9901-6b5d0323ba72
     layer_id: 5a668b14-f485-4001-8807-f07ccac50155
     name: sankey_outcome_flow
     parent_id: null
     properties: {}
-    status: 3
+    status: 1
     type: 1
     variables: null
     width: 1600
@@ -166,10 +183,11 @@ layers:
   - auto_size: false
     canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
     compute_settings: null
-    description: Multi-faceted crowdfunding analysis covering engagement elasticity
-      (update ROI), social proof signals (Facebook correlation), branding anchor effects,
-      creator personas, and quarterly/seasonal performance patterns. Generates 15+
-      interactive visualizations.
+    description: Comprehensive crowdfunding analysis generating visualizations for
+      engagement elasticity, social proof signals, branding anchor effects, creator
+      personas, and propensity modeling. Calculates ROI per update, correlates Facebook
+      friends with success, identifies high-value brand words, and segments creators
+      into 4 personas based on pledge value and backer volume.
     height: 1000
     id: fe60f4c3-a15d-41de-a3f3-71e6ae32297b
     layer_id: 5a668b14-f485-4001-8807-f07ccac50155
@@ -189,6 +207,11 @@ layers:
     layer_id: 5a668b14-f485-4001-8807-f07ccac50155
     source: b0648ba8-871e-4418-829b-a67a6923abab
     target: caa41565-299c-4086-99d7-7bf04bf62e51
+  - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+    id: 18a73039-1b54-43bb-b6fe-5e983666d2de
+    layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+    source: fe60f4c3-a15d-41de-a3f3-71e6ae32297b
+    target: 0ed1ec5e-dbf7-4c41-971a-e1630c16d84b
   - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
     id: 271764af-3b9b-40e6-a958-027dbc528a1a
     layer_id: 5a668b14-f485-4001-8807-f07ccac50155
@@ -215,9 +238,9 @@ layers:
     source: 60f305c5-abb4-4997-9901-6b5d0323ba72
     target: 1ec56b5b-da47-43ef-9fd8-c0eb55134732
   - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
-    id: ef2cd1e4-aa93-4e75-9c5d-c93d909002c9
+    id: ea8b42f7-a678-4a5d-8df6-3b0f52e5fbe1
     layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-    source: fe60f4c3-a15d-41de-a3f3-71e6ae32297b
+    source: 0ed1ec5e-dbf7-4c41-971a-e1630c16d84b
     target: 987079e5-970a-45a1-863e-c906cde149a2
   - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
     id: f93268dc-5123-48b5-831f-820dd4e8f81c

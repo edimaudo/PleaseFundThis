@@ -1,5 +1,6 @@
 ## Flow and Distribution
-
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 ## Sankey chart major category --> minor category --> success
 top_minors = df['minor_category'].value_counts().nlargest(30).index
 df_filtered = df[df['minor_category'].isin(top_minors)].copy()
@@ -134,7 +135,8 @@ fig_quadrant.update_layout(showlegend=False, height=400,    title_x=0.5,)
 fig_quadrant.show()
 
 # Density price rewards
-
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Clean Currency
 df['lowest_pledge_reward_$'] = pd.to_numeric(df['lowest_pledge_reward_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 
@@ -176,6 +178,8 @@ fig_low.show()
 
 
 # 1. Clean Currency for High Tier
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['highest_pledge_reward_$'] = pd.to_numeric(df['highest_pledge_reward_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 
 # 2. Separate by Project Result (Your provided logic)

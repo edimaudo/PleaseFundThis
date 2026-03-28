@@ -1,6 +1,8 @@
 # Success Drivers and Indicators
 
 ## Correlation heatmap
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 currency_cols = ['lowest_pledge_reward_$', 'highest_pledge_reward_$', 'amt_pledged_$', 'goal_$']
 for col in currency_cols:
     df[col] = pd.to_numeric(df[col].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
@@ -43,6 +45,8 @@ fig_heatmap.update_layout(
 fig_heatmap.show()
 
 ## ROI of Communication
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['project_update_count'] = pd.to_numeric(df['project_update_count'], errors='coerce')
 df['percent_raised'] = pd.to_numeric(df['percent_raised'], errors='coerce')
 
@@ -88,7 +92,8 @@ fig_roi.update_layout(
 fig_roi.show()
 
 ## Funding lift looking at social media (fb pages) and funding videos
-
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Clean Currency
 df['amt_pledged_$'] = pd.to_numeric(df['amt_pledged_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 
@@ -132,6 +137,8 @@ fig_video.update_layout(
 fig_video.show()
 
 ### Social media
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # 1. Pre-process Social Labels
 df_view['fb_label'] = df_view['project_has_facebook_page'].apply(lambda x: 'Has Facebook' if x is True else 'No Facebook')
 
@@ -169,6 +176,8 @@ fig_fb.update_layout(
 fig_fb.show()
 
 ## Social media impact
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['facebook_friends_count'] = pd.to_numeric(df['facebook_friends_count'], errors='coerce')
 
 # 2. Filter for clear linear view (0-5000 friends)
@@ -217,6 +226,8 @@ fig_strip.update_layout(
 fig_strip.show()
 
 ## Duration and goal $
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Clean Goal and Duration
 df['goal_$'] = pd.to_numeric(df['goal_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 df['duration_days'] = pd.to_numeric(df['duration_days'], errors='coerce')

@@ -3,6 +3,8 @@
 ### Engagement elasticity
 from sklearn.linear_model import LinearRegression
 
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Clean Numeric Data
 df['amt_pledged_$'] = pd.to_numeric(df['amt_pledged_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 df['project_update_count'] = pd.to_numeric(df['project_update_count'], errors='coerce')
@@ -64,6 +66,8 @@ fig.show()
 
 ## Social Proof signal
 # Clean Numeric Data
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['amt_pledged_$'] = pd.to_numeric(df['amt_pledged_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 df['facebook_friends_count'] = pd.to_numeric(df['facebook_friends_count'], errors='coerce')
 df['number_of_pledgers'] = pd.to_numeric(df['number_of_pledgers'], errors='coerce')
@@ -123,6 +127,8 @@ The "Social Proof" Takeaway: "Success isn't just about how many people you know;
 from collections import Counter
 import re
 
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Clean Currency
 df['avg_amt$_per_pledger'] = pd.to_numeric(
     df['avg_amt$_per_pledger'].astype(str).str.replace(r'[$,]', '', regex=True), 
@@ -193,6 +199,8 @@ Strategy Takeaway: "If you want to raise more money per person, you shouldn't ju
 
 ## Creator personas
 # Clean Numeric Data
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['avg_amt$_per_pledger'] = pd.to_numeric(df['avg_amt$_per_pledger'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 df['number_of_pledgers'] = pd.to_numeric(df['number_of_pledgers'], errors='coerce')
 

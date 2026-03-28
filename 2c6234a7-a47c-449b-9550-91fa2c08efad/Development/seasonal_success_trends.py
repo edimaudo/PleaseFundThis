@@ -1,6 +1,8 @@
 # Performance Trends and Comparisons
 
 ## Trend over time Month
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['date_launched'] = pd.to_datetime(df['date_launched'], errors='coerce')
 df['Month'] = df['date_launched'].dt.month_name()
 df['success_numeric'] = df['project_success'].astype(int)
@@ -64,6 +66,8 @@ fig_daily.update_layout(
 fig_daily.show()
 
 ## Comparison between goal $ and amount pledged
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Clean currency columns
 for col in ['goal_$', 'amt_pledged_$']:
     df[col] = pd.to_numeric(df[col].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
@@ -133,6 +137,8 @@ fig_cat_dumbbell.update_xaxes(
 fig_cat_dumbbell.show()
 
 ## analyze top 20 projects in a similar way
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 # Calculate the 'overfunding' amount and select Top 20 for readability
 df['overfunding_gap'] = df['amt_pledged_$'] - df['goal_$']
 top_20 = df.sort_values(by='overfunding_gap', ascending=False).head(20).copy()
