@@ -1,15 +1,18 @@
+##=====================
 ## Key Issues and analysis
+##=====================
 
+####################
 ### Engagement elasticity
-from sklearn.linear_model import LinearRegression
+####################
 
+from sklearn.linear_model import LinearRegression
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 # Clean Numeric Data
 df['amt_pledged_$'] = pd.to_numeric(df['amt_pledged_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 df['project_update_count'] = pd.to_numeric(df['project_update_count'], errors='coerce')
 
-# 2. Filter and Separate (Your Logic)
 df_clean = df[(df['amt_pledged_$'] <= 50000) & (df['project_update_count'] <= 50)].dropna(subset=['amt_pledged_$', 'project_update_count'])
 success_df = df_clean[df_clean['project_success'] == True].sort_values('project_update_count')
 failed_df = df_clean[df_clean['project_success'] == False].sort_values('project_update_count')
@@ -27,7 +30,7 @@ def calculate_roi_line(sub_df):
     model = LinearRegression()
     model.fit(X, y)
     
-    # Predict and FLATTEN the output for Plotly
+    # Predict and FLATTEN the output
     predictions = model.predict(X).flatten() 
     roi_val = model.coef_[0]
     
@@ -37,7 +40,7 @@ def calculate_roi_line(sub_df):
 s_preds, s_roi = calculate_roi_line(success_df)
 f_preds, f_roi = calculate_roi_line(failed_df)
 
-# 4. Build Visualization
+
 fig = go.Figure()
 
 # Success Trace
@@ -64,8 +67,9 @@ fig.show()
 ###The Success Gap: You will likely notice the Green line is much steeper than the Red line. This proves that Engagement Elasticity is higher for winners—updates don't just happen because they are winning; updates drive the winning momentum.
 ###Diminishing Returns: By looking at the spread of dots, you can see if the "ROI" stays consistent at 40+ updates or if there is a "Sweet Spot" (usually between 10–25) where the most funding is captured.
 
+####################
 ## Social Proof signal
-# Clean Numeric Data
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 df['amt_pledged_$'] = pd.to_numeric(df['amt_pledged_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
@@ -73,12 +77,10 @@ df['facebook_friends_count'] = pd.to_numeric(df['facebook_friends_count'], error
 df['number_of_pledgers'] = pd.to_numeric(df['number_of_pledgers'], errors='coerce')
 df['project_success_numeric'] = df['project_success'].astype(int)
 
-# 2. Calculate Spearman Correlation (The "No-Fail" Pandas Method)
-# We correlate Facebook Friends against three key outcomes
+# 2. Calculate Spearman Correlation 
 corr_results = df[['facebook_friends_count', 'project_success_numeric', 'amt_pledged_$', 'number_of_pledgers']].corr(method='spearman')
 
 # Extract the specific correlations for Facebook Friends
-# We drop the self-correlation (Friends vs Friends)
 labels = ['Winning (Success)', 'Total Funding ($)', 'Crowd Size (Backers)']
 values = [
     corr_results.loc['facebook_friends_count', 'project_success_numeric'],
@@ -86,7 +88,6 @@ values = [
     corr_results.loc['facebook_friends_count', 'number_of_pledgers']
 ]
 
-# 3. Build the Signal Strength Visualization
 fig_signal = go.Figure()
 
 fig_signal.add_trace(go.Bar(
@@ -97,7 +98,6 @@ fig_signal.add_trace(go.Bar(
     textposition='auto',
 ) )
 
-# 4. Layout and "Vanity vs Value" Annotations
 fig_signal.update_layout(
     title={'text': "<b>The Social Proof Signal:</b> Is Facebook a Vanity Metric?", 'x': 0.5},
     yaxis_title="Spearman Correlation Strength (0 to 1)",
@@ -114,19 +114,18 @@ fig_signal.show()
 print(f"Correlation with Success: {values[0]:.2f}")
 print(f"Correlation with Funding: {values[1]:.2f}")
 
-### Potential interpreation
+
 """
 The Vanity Threshold: If the "Winning" bar is much higher than the "Total Funding" bar, tell your audience: "Facebook friends are a vanity metric for scale. They help you get enough backers to meet your goal, but they don't necessarily attract the high-value investors who drive total funding into the millions."
-
 The "Leading Indicator": A score above 0.40 is a "Strong Signal." If the "Crowd Size" bar is the highest, it proves that your personal network is your "Seed Crowd"—they are the ones who show up first so that strangers feel safe pledging later.
-
 The "Social Proof" Takeaway: "Success isn't just about how many people you know; it's about how many people you know who are willing to act as a 'signal' to the rest of the world that your project is worth backing."
 """
 
+####################
 ## Branding and anchor effect
+####################
 from collections import Counter
 import re
-
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 # Clean Currency
@@ -148,13 +147,12 @@ def get_tokens(text):
 # Apply tokenization
 df['name_tokens'] = df['project_name'].apply(get_tokens)
 
-# 3. Identify High-Frequency "Power Words"
 # We find words that appear at least 10 times to ensure statistical relevance
 all_words = [word for tokens in df['name_tokens'] for word in tokens]
 word_counts = Counter(all_words)
 power_word_candidates = [word for word, count in word_counts.items() if count >= 10]
 
-# 4. Calculate the "Anchor Value" (Average Pledge) for each word
+# Calculate the "Anchor Value" (Average Pledge) for each word
 word_values = []
 for word in power_word_candidates:
     # Find rows where the project name contains this word
@@ -165,7 +163,6 @@ for word in power_word_candidates:
 # Create DataFrame and sort by Value
 word_df = pd.DataFrame(word_values).sort_values('anchor_value', ascending=False).head(15)
 
-# 5. Build the "Anchor Effect" Visualization
 fig_branding = go.Figure()
 
 fig_branding.add_trace(go.Bar(
@@ -191,26 +188,26 @@ fig_branding.show()
 ### Explanation
 """
 Premium Signals: Point to the top of the list. "When creators use words like 'Titanium' or 'Automatic,' they are anchoring the backer's mind to a higher price point. This shows that branding isn't just about 'looking cool'—it's a financial lever."
-
 The Contextual Lift: If words like "Film" have a lower anchor value than "Lens," you can explain: "Backers associate physical hardware with higher value than digital content, and our data proves that this bias shows up in the project name itself."
-
 Strategy Takeaway: "If you want to raise more money per person, you shouldn't just change your product—you should change your vocabulary. Use words that the market already associates with high-tier investments."
 """
 
+####################
 ## Creator personas
-# Clean Numeric Data
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
+# Clean Numeric Data
 df['avg_amt$_per_pledger'] = pd.to_numeric(df['avg_amt$_per_pledger'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 df['number_of_pledgers'] = pd.to_numeric(df['number_of_pledgers'], errors='coerce')
 
 df = df.dropna(subset=['avg_amt$_per_pledger', 'number_of_pledgers'])
 
-# 2. Thresholds (Medians)
+# Thresholds (Medians)
 x_mid = df['number_of_pledgers'].median()
 y_mid = df['avg_amt$_per_pledger'].median()
 
-# 3. Numeric Quadrant Assignment
+# Numeric Quadrant Assignment
 def assign_num(row):
     if row['avg_amt$_per_pledger'] >= y_mid and row['number_of_pledgers'] >= x_mid: return 1
     if row['avg_amt$_per_pledger'] >= y_mid and row['number_of_pledgers'] < x_mid:  return 2
@@ -219,7 +216,6 @@ def assign_num(row):
 
 df['Quad_Num'] = df.apply(assign_num, axis=1)
 
-# 4. Build Visualization
 fig_menu = px.scatter(
     df,
     x='number_of_pledgers',
@@ -233,13 +229,9 @@ fig_menu = px.scatter(
     color_continuous_scale=[(0, '#00CC96'), (0.33, '#636EFA'), (0.66, '#AB63FA'), (1, '#EF553B')]
 )
 
-# 5. High-Visibility Crosshairs
-# Using solid lines and higher opacity for professional visibility
 fig_menu.add_vline(x=x_mid, line_width=3, line_color="RoyalBlue", opacity=1)
 fig_menu.add_hline(y=y_mid, line_width=3, line_color="RoyalBlue", opacity=1)
 
-# 6. Quadrant Labeling via Annotations
-# Since axes are Log, we use 'paper' references to keep labels in the corners
 fig_menu.update_layout(
     annotations=[
         dict(x=0.95, y=0.95, xref="paper", yref="paper", text="<b>STARS</b><br>High Value / High Volume", showarrow=False, font=dict(color="#00CC96", size=14)),
@@ -253,84 +245,84 @@ fig_menu.update_layout(coloraxis_showscale=False, title_x=0.5, height=700)
 fig_menu.show()
 """
 By using Average Pledge (Price) and Number of Pledgers (Popularity), you are showing the group exactly where the "profitability" lies.
-
 Plowhorses (Bottom Right) are popular but cheap. They need to raise their "menu prices" (add higher reward tiers).
-
 Boutiques (Top Left) are expensive but niche. They need better "marketing" (more backers) to become Stars.
 """
-
+####################
 ## Propensity modeling
-# df.columns = df.columns.str.strip()
+####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 
-# # Numeric Cleaning
-# def clean_money(val):
-#     return pd.to_numeric(str(val).replace('$', '').replace(',', '').strip(), errors='coerce')
+# Numeric Cleaning
+def clean_money(val):
+    return pd.to_numeric(str(val).replace('$', '').replace(',', '').strip(), errors='coerce')
 
-# df['amt_pledged_$'] = df['amt_pledged_$'].apply(clean_money)
-# df['goal_$'] = df['goal_$'].apply(clean_money)
+df['amt_pledged_$'] = df['amt_pledged_$'].apply(clean_money)
+df['goal_$'] = df['goal_$'].apply(clean_money)
 
-# # STRING NORMALIZATION (The likely culprit for your KeyError)
-# df['has_video'] = df['project_has_video'].astype(str).str.strip().str.lower()
-# df['major_category'] = df['major_category'].astype(str).str.strip().str.lower()
+# STRING NORMALIZATION (The likely culprit for your KeyError)
+df['has_video'] = df['project_has_video'].astype(str).str.strip().str.lower()
+df['major_category'] = df['major_category'].astype(str).str.strip().str.lower()
 
-# # Facebook Logic
-# df['fb_count'] = pd.to_numeric(df['facebook_friends_count'], errors='coerce').fillna(0)
-# df['has_fb'] = np.where(df['fb_count'] > 0, 'yes', 'no')
+# Facebook Logic
+df['fb_count'] = pd.to_numeric(df['facebook_friends_count'], errors='coerce').fillna(0)
+df['has_fb'] = np.where(df['fb_count'] > 0, 'yes', 'no')
 
-# # Drop rows missing core metrics
-# df = df.dropna(subset=['amt_pledged_$', 'goal_$'])
+# Drop rows missing core metrics
+df = df.dropna(subset=['amt_pledged_$', 'goal_$'])
 
-# # 2. Independent Matching Function with empty-check safety
-# def perform_psm_match(data, treat_col):
-#     treatment_group = data[data[treat_col] == 'yes'].copy()
-#     control_group = data[data[treat_col] == 'no'].copy()
+# 2. Independent Matching Function with empty-check safety
+def perform_psm_match(data, treat_col):
+    treatment_group = data[data[treat_col] == 'yes'].copy()
+    control_group = data[data[treat_col] == 'no'].copy()
     
-#     matched_pairs = []
+    matched_pairs = []
     
-#     for _, t_row in treatment_group.iterrows():
-#         # Match within same normalized category
-#         potentials = control_group[control_group['major_category'] == t_row['major_category']]
+    for _, t_row in treatment_group.iterrows():
+        # Match within same normalized category
+        potentials = control_group[control_group['major_category'] == t_row['major_category']]
         
-#         if not potentials.empty:
-#             match_idx = (potentials['goal_$'] - t_row['goal_$']).abs().idxmin()
-#             c_row = potentials.loc[match_idx]
+        if not potentials.empty:
+            match_idx = (potentials['goal_$'] - t_row['goal_$']).abs().idxmin()
+            c_row = potentials.loc[match_idx]
             
-#             matched_pairs.append({'Group_ID': 1, 'Pledge': t_row['amt_pledged_$']})
-#             matched_pairs.append({'Group_ID': 2, 'Pledge': c_row['amt_pledged_$']})
-#             control_group = control_group.drop(match_idx)
+            matched_pairs.append({'Group_ID': 1, 'Pledge': t_row['amt_pledged_$']})
+            matched_pairs.append({'Group_ID': 2, 'Pledge': c_row['amt_pledged_$']})
+            control_group = control_group.drop(match_idx)
             
-#     # Return empty DF with columns if no matches found to prevent KeyError
-#     if not matched_pairs:
-#         return pd.DataFrame(columns=['Group_ID', 'Pledge'])
-#     return pd.DataFrame(matched_pairs)
+    # Return empty DF with columns if no matches found to prevent KeyError
+    if not matched_pairs:
+        return pd.DataFrame(columns=['Group_ID', 'Pledge'])
+    return pd.DataFrame(matched_pairs)
 
-# # 3. Execute
-# video_matched_df = perform_psm_match(df, 'has_video')
-# fb_matched_df = perform_psm_match(df, 'has_fb')
+# 3. Execute
+video_matched_df = perform_psm_match(df, 'has_video')
+fb_matched_df = perform_psm_match(df, 'has_fb')
 
-# # 4. Safety Gate & Visualization
-# label_map = {1: 'Treatment (With Feature)', 2: 'Control (Matched Twin)'}
+# 4. Safety Gate & Visualization
+label_map = {1: 'Treatment (With Feature)', 2: 'Control (Matched Twin)'}
 
-# # Check if we have data before grouping
-# if not video_matched_df.empty and not fb_matched_df.empty:
-#     v_results = video_matched_df.groupby('Group_ID')['Pledge'].mean().reset_index()
-#     v_results['Label'] = v_results['Group_ID'].map(label_map)
+# Check if we have data before grouping
+if not video_matched_df.empty and not fb_matched_df.empty:
+    v_results = video_matched_df.groupby('Group_ID')['Pledge'].mean().reset_index()
+    v_results['Label'] = v_results['Group_ID'].map(label_map)
 
-#     f_results = fb_matched_df.groupby('Group_ID')['Pledge'].mean().reset_index()
-#     f_results['Label'] = f_results['Group_ID'].map(label_map)
+    f_results = fb_matched_df.groupby('Group_ID')['Pledge'].mean().reset_index()
+    f_results['Label'] = f_results['Group_ID'].map(label_map)
 
-#     # Subplots
-#     fig = make_subplots(rows=1, cols=2, subplot_titles=("Video Independent ROI", "Facebook Independent ROI"))
+    # Subplots
+    fig = make_subplots(rows=1, cols=2, subplot_titles=("Video Independent ROI", "Facebook Independent ROI"))
     
-#     fig.add_trace(go.Bar(x=v_results['Label'], y=v_results['Pledge'], name="Video", marker_color='#636EFA'), row=1, col=1)
-#     fig.add_trace(go.Bar(x=f_results['Label'], y=f_results['Pledge'], name="FB", marker_color='#00CC96'), row=1, col=2)
+    fig.add_trace(go.Bar(x=v_results['Label'], y=v_results['Pledge'], name="Video", marker_color='#636EFA'), row=1, col=1)
+    fig.add_trace(go.Bar(x=f_results['Label'], y=f_results['Pledge'], name="FB", marker_color='#00CC96'), row=1, col=2)
     
-#     fig.update_layout(title_text="<b>Isolated Feature ROI via PSM</b>", template='plotly_white', showlegend=False)
-#     fig.show()
+    fig.update_layout(title_text="<b>Isolated Feature ROI via PSM</b>", template='plotly_white', showlegend=False)
+    fig.show()
     
-#     # Calculate Lift
-#     v_lift = (v_results.iloc[0]['Pledge'] / v_results.iloc[1]['Pledge'] - 1) * 100
-#     f_lift = (f_results.iloc[0]['Pledge'] / f_results.iloc[1]['Pledge'] - 1) * 100
-#     print(f"Video Lift: {v_lift:.1f}% | FB Lift: {f_lift:.1f}%")
-# else:
-#     print("Error: No matches found. Check if Category names match exactly between Treatment and Control groups.")
+    # Calculate Lift
+    v_lift = (v_results.iloc[0]['Pledge'] / v_results.iloc[1]['Pledge'] - 1) * 100
+    f_lift = (f_results.iloc[0]['Pledge'] / f_results.iloc[1]['Pledge'] - 1) * 100
+    print(f"Video Lift: {v_lift:.1f}% | FB Lift: {f_lift:.1f}%")
+else:
+    print("Error: No matches found. Check if Category names match exactly between Treatment and Control groups.")

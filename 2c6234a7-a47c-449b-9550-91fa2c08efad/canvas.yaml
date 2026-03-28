@@ -31,10 +31,9 @@ layers:
   - auto_size: false
     canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
     compute_settings: null
-    description: Analyzes crowdfunding project success patterns by segmenting projects
-      into overachievers, standard winners, and failures, comparing update frequency
-      and pledge tier complexity. Visualizes top-performing cities by success rate
-      and identifies key behavioral drivers behind viral campaign growth.
+    description: Analyzes crowdfunding project success patterns by comparing overachievers,
+      winners, and failed projects across update frequency, pledge tier complexity,
+      and geographic performance to identify viral success drivers.
     height: 1000
     id: 0ed1ec5e-dbf7-4c41-971a-e1630c16d84b
     layer_id: 5a668b14-f485-4001-8807-f07ccac50155
@@ -164,18 +163,18 @@ layers:
   - auto_size: false
     canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
     compute_settings: null
-    description: Comprehensive crowdfunding analysis generating visualizations for
-      engagement elasticity, social proof signals, branding anchor effects, creator
-      personas, and propensity modeling. Calculates ROI per update, correlates Facebook
-      friends with success, identifies high-value brand words, and segments creators
-      into 4 personas based on pledge value and backer volume.
+    description: 'Comprehensive crowdfunding analysis suite: quantifies engagement
+      elasticity (update ROI), social proof signals, branding anchor effects on pledge
+      values, creator personas (Stars/Boutiques/Plowhorses), success propensity modeling,
+      and category/seasonal trends. Generates 15+ interactive visualizations revealing
+      what drives project success and funding.'
     height: 1000
     id: fe60f4c3-a15d-41de-a3f3-71e6ae32297b
     layer_id: 5a668b14-f485-4001-8807-f07ccac50155
     name: engagement_elasticity_regression
     parent_id: null
     properties: {}
-    status: 1
+    status: 3
     type: 1
     variables: null
     width: 1600

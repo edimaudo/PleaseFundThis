@@ -1,6 +1,10 @@
+##=====================
 # Strategic Storylines
+##=====================
 
+####################
 ## Anatomy of an overachiever
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 # Create the segments based on Percent Raised
@@ -11,7 +15,6 @@ def segment_success(percent):
 
 df['Success_Tier'] = df['percent_raised'].apply(segment_success)
 
-# 2. Comparative Mean Analysis
 # Calculating means for Update Counts and Pledge Level Counts
 anatomy_stats = df.groupby('Success_Tier').agg({
     'project_update_count': 'mean',
@@ -19,7 +22,6 @@ anatomy_stats = df.groupby('Success_Tier').agg({
     'project_id': 'count'
 }).reindex(['Overachiever (500%+)', 'Standard Winner (100-499%)', 'Failed Project (<100%)']).reset_index()
 
-# 3. Visualization: Dual-Axis Comparison
 fig = go.Figure()
 
 # Add Bars for Update Frequency
@@ -79,44 +81,56 @@ Look at the distance between the Standard Winner and the Overachiever. If the Up
 that is your "Viral Threshold." That is the extra effort required to cross from "Successful" to "Legendary."
 """
 
+####################
+## Global map of Success
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 df['city'] = df['city'].astype(str).str.strip().str.title()
-## Global map of Success
 df['is_success'] = pd.to_numeric(df['project_success'], errors='coerce').fillna(0).astype(bool)
-# If the column is strictly 'TRUE'/'FALSE' strings:
 if df['is_success'].sum() == 0:
     df['is_success'] = df['project_success'].astype(str).str.strip().str.upper() == 'TRUE'
 
-# 3. Calculate metrics
-# We sum the booleans (True = 1) to get Successes
+# Calculate metrics
 city_stats = df.groupby('city')['is_success'].agg(['sum', 'count']).reset_index()
 city_stats.columns = ['City', 'Successes', 'Total_Outcomes']
-
-# 4. THE FORMULA: Rate = (Successes / Total) * 100
 city_stats['Success Rate'] = (city_stats['Successes'] / city_stats['Total_Outcomes']) * 100
-
-# 5. Filter for Volume and Sort
 top_cities = city_stats[city_stats['Total_Outcomes'] >= 10].sort_values('Success Rate', ascending=False)
+# fig_geo = px.bar(
+#     top_cities.head(20), 
+#     x='City', 
+#     y='Success Rate',
+#     color='Success Rate',
+#     text_auto='.1f',
+#     title='<b>Top Cities by Success Rate</b>',
+#     labels={'Success Rate': 'Success Rate (%)'},
+#     color_continuous_scale='viridis',
+#     template='plotly_white'
+# )
 
-# 6. Visualization
+# fig_geo.update_layout(
+#     title_x=0.5
+# )
+# fig_geo.show()
 fig_geo = px.bar(
     top_cities.head(20), 
-    x='City', 
-    y='Success Rate',
+    x='Success Rate',      # Move numeric value to x
+    y='City',              # Move category to y
     color='Success Rate',
+    orientation='h',       # Explicitly set horizontal orientation
     text_auto='.1f',
     title='<b>Top Cities by Success Rate</b>',
-    labels={'Success Rate': 'Success Rate (%)'},
-    color_continuous_scale='Greens',
+    labels={'Success Rate': 'Success Rate (%)', 'City': 'Location'},
+    color_continuous_scale='viridis',
     template='plotly_white'
 )
 
 fig_geo.update_layout(
-    title_x=0.5
+    title_x=0.5,
+    yaxis={'categoryorder':'total ascending'} # Keeps the highest rate at the top
 )
-fig_geo.show()
 
+fig_geo.show()
 
 """
 
