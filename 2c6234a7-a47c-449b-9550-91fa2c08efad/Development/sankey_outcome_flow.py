@@ -135,67 +135,79 @@ fig_quadrant.show()
 
 # Density price rewards
 
-for col in ['lowest_pledge_reward_$', 'highest_pledge_reward_$']:
-    df[col] = pd.to_numeric(df[col].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
+# Clean Currency
+df['lowest_pledge_reward_$'] = pd.to_numeric(df['lowest_pledge_reward_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 
-# 2. Filter for Visibility
-# We cap the view at $500 so the "Normal" rewards aren't squashed by $10,000 outliers
-df_view = df[df['highest_pledge_reward_$'] <= 500].copy()
+# 2. THE FIX: Separate by Project Result (Your provided logic)
+# We filter to $200 for a readable linear scale
+df_low = df[df['lowest_pledge_reward_$'] <= 10000]
+success_df = df_low[df_low['project_success'] == True]
+failed_df = df_low[df_low['project_success'] == False]
 
-# 3. Separate by Project Result
-success_df = df_view[df_view['project_success'] == True]
-failed_df = df_view[df_view['project_success'] == False]
+fig_low = go.Figure()
 
-fig = go.Figure()
-
-# 4. Lowest Pledge Rewards (Side-by-Side)
-fig.add_trace(go.Violin(
-    x=['Lowest Pledge Reward'] * len(success_df),
+# Add Successful Trace
+fig_low.add_trace(go.Violin(
     y=success_df['lowest_pledge_reward_$'],
-    name='Successful Projects',
-    side='negative', 
+    name='Successful',
     line_color='#00CC96',
-    box_visible=True
+    box_visible=True,
+    meanline_visible=True
 ))
 
-fig.add_trace(go.Violin(
-    x=['Lowest Pledge Reward'] * len(failed_df),
+# Add Unsuccessful Trace
+fig_low.add_trace(go.Violin(
     y=failed_df['lowest_pledge_reward_$'],
-    name='Unsuccessful Projects',
-    side='positive', 
+    name='Unsuccessful',
     line_color='#EF553B',
-    box_visible=True
+    box_visible=True,
+    meanline_visible=True
 ))
 
-# 5. Highest Pledge Rewards (Side-by-Side)
-fig.add_trace(go.Violin(
-    x=['Highest Pledge Reward'] * len(success_df),
-    y=success_df['highest_pledge_reward_$'],
-    name='Successful Projects',
-    side='negative',
-    line_color='#00CC96',
-    showlegend=False,
-    box_visible=True
-))
-
-fig.add_trace(go.Violin(
-    x=['Highest Pledge Reward'] * len(failed_df),
-    y=failed_df['highest_pledge_reward_$'],
-    name='Unsuccessful Projects',
-    side='positive',
-    line_color='#EF553B',
-    showlegend=False,
-    box_visible=True
-))
-
-# 6. Standard (Linear) Layout
-fig.update_layout(
-    title={'text': 'Pledge Reward Ranges: Successful vs. Unsuccessful Projects', 'x': 0.5},
-    yaxis_title="Price ($)",
-    yaxis_tickformat='$,.0f',
-    violinmode='overlay',
-    template='plotly_white',
-    height=600
+fig_low.update_layout(
+    title={'text': 'Entry Level Pledge Density (Up to $200)', 'x': 0.5},
+    yaxis_title="Pledge Amount ($)",
+    template='plotly_white'
 )
 
-fig.show()
+fig_low.show()
+
+
+
+
+# 1. Clean Currency for High Tier
+df['highest_pledge_reward_$'] = pd.to_numeric(df['highest_pledge_reward_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
+
+# 2. Separate by Project Result (Your provided logic)
+# We filter to $1000 to maintain a non-technical linear scale
+df_high = df[df['highest_pledge_reward_$'] <= 10000]
+success_df_h = df_high[df_high['project_success'] == True]
+failed_df_h = df_high[df_high['project_success'] == False]
+
+fig_high = go.Figure()
+
+# Add Successful Trace
+fig_high.add_trace(go.Violin(
+    y=success_df_h['highest_pledge_reward_$'],
+    name='Successful',
+    line_color='#00CC96',
+    box_visible=True,
+    meanline_visible=True
+))
+
+# Add Unsuccessful Trace
+fig_high.add_trace(go.Violin(
+    y=failed_df_h['highest_pledge_reward_$'],
+    name='Unsuccessful',
+    line_color='#EF553B',
+    box_visible=True,
+    meanline_visible=True
+))
+
+fig_high.update_layout(
+    title={'text': 'High-Tier Pledge Density', 'x': 0.5},
+    yaxis_title="Pledge Amount ($)",
+    template='plotly_white'
+)
+
+fig_high.show()

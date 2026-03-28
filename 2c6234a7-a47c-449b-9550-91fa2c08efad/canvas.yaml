@@ -50,15 +50,16 @@ layers:
   - auto_size: false
     canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
     compute_settings: null
-    description: Displays key success drivers and indicators. Outlines the metrics
-      and factors that define business objectives and track performance outcomes.
+    description: Analyzes crowdfunding success drivers through correlation matrices,
+      scatter plots, and box plots. Evaluates impact of updates, videos, social media,
+      and backer value across project categories to identify key funding success factors.
     height: 1000
     id: 1ec56b5b-da47-43ef-9fd8-c0eb55134732
     layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-    name: python_block
+    name: correlation_heatmap_analysis
     parent_id: null
     properties: {}
-    status: 1
+    status: 3
     type: 1
     variables: null
     width: 1600
@@ -67,10 +68,12 @@ layers:
   - auto_size: false
     canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
     compute_settings: null
-    description: "Visualizes project funding outcomes using Sankey flows (major\u2192\
-      minor category\u2192success), parallel categories for video/Facebook influence,\
-      \ quadrant analysis of backer types, and violin plots comparing pledge rewards\
-      \ between successful vs. failed projects."
+    description: 'Generates six interactive visualizations analyzing crowdfunding
+      project outcomes: (1) Sankey diagram showing category flow to success/failure,
+      (2) parallel categories chart examining video and Facebook influence, (3) bar
+      chart ranking project types by success rate (unicorns vs. whales vs. crowd),
+      and (4-5) violin plots comparing entry-level and high-tier pledge amounts between
+      successful and failed projects.'
     height: 1000
     id: 60f305c5-abb4-4997-9901-6b5d0323ba72
     layer_id: 5a668b14-f485-4001-8807-f07ccac50155
