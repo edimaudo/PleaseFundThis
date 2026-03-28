@@ -1,6 +1,10 @@
+##=====================
 # Success Drivers and Indicators
+##=====================
 
+####################
 ## Correlation heatmap
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 currency_cols = ['lowest_pledge_reward_$', 'highest_pledge_reward_$', 'amt_pledged_$', 'goal_$']
@@ -12,7 +16,6 @@ df['project_success'] = df['project_success'].astype(int)
 df['project_has_video'] = df['project_has_video'].astype(int)
 
 # 3. Select Numeric Metrics for the Heatmap
-# We include all the key drivers we've discussed
 metrics = [
     'amt_pledged_$', 'percent_raised', 'project_success',
     'project_update_count', 'number_of_pledgers', 'comments_count',
@@ -23,7 +26,6 @@ metrics = [
 # Create the Correlation Matrix
 corr_matrix = df[metrics].corr()
 
-# 4. Build the Heatmap
 fig_heatmap = px.imshow(
     corr_matrix,
     text_auto=".2f", # Shows the correlation number in the box
@@ -35,7 +37,6 @@ fig_heatmap = px.imshow(
     template='plotly_white'
 )
 
-# 5. Styling for the Audience
 fig_heatmap.update_layout(
     title={'text': 'The Drivers of Success: Correlation Heatmap', 'x': 0.5},
     height=800,
@@ -44,22 +45,22 @@ fig_heatmap.update_layout(
 
 fig_heatmap.show()
 
+
+####################
 ## ROI of Communication
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 df['project_update_count'] = pd.to_numeric(df['project_update_count'], errors='coerce')
 df['percent_raised'] = pd.to_numeric(df['percent_raised'], errors='coerce')
 
-# 2. Filter Outliers (Capping at 1000% so the linear scale is readable)
 df_filtered = df[df['percent_raised'] <= 1000].copy()
 
-# 3. Separate by Project Result (Using your logic)
 success_df = df_filtered[df_filtered['project_success'] == True]
 failed_df = df_filtered[df_filtered['project_success'] == False]
 
 fig_roi = go.Figure()
 
-# 4. Add Successful Projects (Dots + Trendline)
 fig_roi.add_trace(go.Scatter(
     x=success_df['project_update_count'],
     y=success_df['percent_raised'],
@@ -69,7 +70,7 @@ fig_roi.add_trace(go.Scatter(
     hovertemplate="Updates: %{x}<br>Raised: %{y}%<extra></extra>"
 ))
 
-# 5. Add Unsuccessful Projects (Dots + Trendline)
+# Add Unsuccessful Projects (Dots + Trendline)
 fig_roi.add_trace(go.Scatter(
     x=failed_df['project_update_count'],
     y=failed_df['percent_raised'],
@@ -79,7 +80,6 @@ fig_roi.add_trace(go.Scatter(
     hovertemplate="Updates: %{x}<br>Raised: %{y}%<extra></extra>"
 ))
 
-# 6. Layout Styling
 fig_roi.update_layout(
     title={'text': 'The ROI of Communication: Updates vs. Funding Percentage', 'x': 0.5},
     xaxis_title="Number of Project Updates",
@@ -91,23 +91,19 @@ fig_roi.update_layout(
 
 fig_roi.show()
 
+####################
 ## Funding lift looking at social media (fb pages) and funding videos
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 # Clean Currency
 df['amt_pledged_$'] = pd.to_numeric(df['amt_pledged_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 
 df_view = df[df['amt_pledged_$'] <= 10000].copy()
-
-# 3. PRE-PROCESS CATEGORIES (The Fix for Blank Graphs)
-# We create a new string column so Plotly doesn't have to "guess" the labels
 df_view['video_label'] = df_view['project_has_video'].apply(lambda x: 'With Video' if x is True else 'No Video')
-
-# 4. Separate by Project Result (Your Logic)
 success_df = df_view[df_view['project_success'] == True]
 failed_df = df_view[df_view['project_success'] == False]
 
-# 5. Build the Video Box Plot
 fig_video = go.Figure()
 
 fig_video.add_trace(go.Box(
@@ -136,17 +132,15 @@ fig_video.update_layout(
 
 fig_video.show()
 
-### Social media
+####################
+### Social media Availability
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
-# 1. Pre-process Social Labels
 df_view['fb_label'] = df_view['project_has_facebook_page'].apply(lambda x: 'Has Facebook' if x is True else 'No Facebook')
-
-# 2. Re-separate (to include the new column)
 success_df_fb = df_view[df_view['project_success'] == True]
 failed_df_fb = df_view[df_view['project_success'] == False]
 
-# 3. Build the Facebook Box Plot
 fig_fb = go.Figure()
 
 fig_fb.add_trace(go.Box(
@@ -166,7 +160,7 @@ fig_fb.add_trace(go.Box(
 ))
 
 fig_fb.update_layout(
-    title={'text': 'Social Lift: Impact of Facebook Community', 'x': 0.5},
+    title={'text': 'Social Lift: Impact of Facebook Pages', 'x': 0.5},
     yaxis_title="Total Amount Pledged ($)",
     xaxis_title="Facebook Page Presence",
     boxmode='group',
@@ -175,19 +169,18 @@ fig_fb.update_layout(
 
 fig_fb.show()
 
-## Social media impact
+####################
+## Social media impact facebook friends count
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 df['facebook_friends_count'] = pd.to_numeric(df['facebook_friends_count'], errors='coerce')
 
-# 2. Filter for clear linear view (0-5000 friends)
 df_view = df[df['facebook_friends_count'] <= 10000].copy()
 
-# 3. Separate by Project Result (Your Logic)
 success_df = df_view[df_view['project_success'] == True]
 failed_df = df_view[df_view['project_success'] == False]
 
-# 4. Build the Chart
 fig_strip = go.Figure()
 
 # Successful Projects
@@ -210,7 +203,6 @@ fig_strip.add_trace(go.Box(
     hovertext="Unsuccessful Project"
 ))
 
-# 5. Fix Alignment and Clarity
 fig_strip.update_layout(
     title={
         'text': "<b>Crowdsourcing Power:</b> How Personal Networks Impact Success",
@@ -225,22 +217,20 @@ fig_strip.update_layout(
 
 fig_strip.show()
 
+####################
 ## Duration and goal $
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 # Clean Goal and Duration
 df['goal_$'] = pd.to_numeric(df['goal_$'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 df['duration_days'] = pd.to_numeric(df['duration_days'], errors='coerce')
 
-# 2. Filter for a clear view
 # Capping at $100k and 60 days ensures the bins aren't stretched too thin
 df_view = df[(df['goal_$'] <= 100000) & (df['duration_days'] <= 60)].copy()
 
-# 3. Separate by Project Result (Your Logic)
-# We focus on failed projects to map the "Danger Zone"
 failed_df = df_view[df_view['project_success'] == False]
 
-# 4. Create the Density Heatmap
 fig_danger = px.density_heatmap(
     failed_df, 
     x='duration_days', 
@@ -253,7 +243,6 @@ fig_danger = px.density_heatmap(
     template='plotly_white'
 )
 
-# 5. Fix Alignment and Add "Danger" Annotation
 fig_danger.update_layout(
     title={'y':0.95, 'x':0.5, 'xanchor': 'center', 'yanchor': 'top'},
     xaxis_title="Days the Campaign Lasted",
@@ -262,7 +251,6 @@ fig_danger.update_layout(
     height=600
 )
 
-# Adding a clear "Danger Zone" pointer
 fig_danger.add_annotation(
     x=10, y=85000, # Points to the top-left (Short duration, High goal)
     text="<b>DANGER ZONE</b><br>High goals with very short windows<br>show the highest risk of failure.",
@@ -273,22 +261,19 @@ fig_danger.add_annotation(
 
 fig_danger.show()
 
+####################
 ## Most valuable backers
+####################
+df = pd.read_csv('PleaseFundThis.csv')
+df.columns = df.columns.str.strip()
 df['avg_amt$_per_pledger'] = pd.to_numeric(df['avg_amt$_per_pledger'].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
-
-# 2. Calculate Averages per Category
 # We group by both category and success to see if successful projects attract "higher value" backers
 category_stats = df.groupby(['major_category', 'project_success'])['avg_amt$_per_pledger'].mean().reset_index()
-
-# 3. Sort Categories by the 'Successful' value to create an ordered ranking
 # We find the order of categories based on the highest average pledge for successful projects
 sort_order = category_stats[category_stats['project_success'] == True].sort_values('avg_amt$_per_pledger', ascending=False)['major_category'].tolist()
-
-# 4. Separate by Project Result (Your Logic)
 success_data = category_stats[category_stats['project_success'] == True]
 failed_data = category_stats[category_stats['project_success'] == False]
 
-# 5. Build the Bar Chart
 fig_value = go.Figure()
 
 # Successful Projects Trace
@@ -311,7 +296,6 @@ fig_value.add_trace(go.Bar(
     textposition='auto'
 ))
 
-# 6. Final Layout & Sorting
 fig_value.update_layout(
     title={'text': '<b>The Backer Value Index:</b> Which Categories Attract the Highest Pledges?', 'x': 0.5},
     xaxis_title="Project Category",
