@@ -25,15 +25,17 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Analyzes seasonal crowdfunding trends across months & days, plus funding
-    gaps by category and top 20 overfunded projects with interactive Plotly visualizations.
+  description: 'Analyzes crowdfunding trends through four interactive visualizations:
+    seasonal success rates by month and day of week, funding gaps between goals and
+    pledged amounts by category, and overfunding patterns in top 20 projects. Reveals
+    optimal launch timing and funding behavior across project categories.'
   height: 1000
   id: 19ddc02f-82d0-4745-97cd-184f98b3d0c4
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   name: seasonal_success_trends
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -98,35 +100,15 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: 'Visualizes crowdfunding campaign hierarchy and trends through multiple
-    interactive charts: sunburst/treemap for category breakdowns, ranked bar charts
-    for major/minor categories, pledge count treemaps, goal distribution violin plots,
-    psychological anchoring histogram, and keyword frequency analysis of successful
-    projects.'
+  description: "Visualizes funding project hierarchy through multiple interactive\
+    \ charts: treemaps showing pledged amounts and pledger counts by category, ranked\
+    \ bar charts, goal distribution violin plots, anchoring bias histogram, and a\
+    \ word cloud of successful project titles\u2014revealing funding patterns and\
+    \ psychological pricing effects."
   height: 1000
   id: b0648ba8-871e-4418-829b-a67a6923abab
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   name: fund_hierarchy_sunburst
-  parent_id: null
-  properties: {}
-  status: 3
-  type: 1
-  variables: null
-  width: 1600
-  x: 0
-  y: 1000
-- auto_size: false
-  canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
-  compute_settings: null
-  description: "Analyzes and visualizes global project success patterns by region,\
-    \ city, and success rate. Creates 5 interactive charts: choropleth map of success\
-    \ hotspots, top regions and cities by successful project count, city efficiency\
-    \ lollipop chart, and a success/failure volume comparison\u2014filtering for 3.5k\
-    \ successful projects across 17.9k total records."
-  height: 1000
-  id: caa41565-299c-4086-99d7-7bf04bf62e51
-  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: successful_projects_geographic_analysis
   parent_id: null
   properties: {}
   status: 1
@@ -134,7 +116,7 @@ blocks:
   variables: null
   width: 1600
   x: 0
-  y: 1500
+  y: 1000
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
@@ -176,20 +158,10 @@ blocks:
   y: 1500
 edges:
 - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
-  id: 02a5ce1d-3494-4d73-a814-e84f7a635f16
-  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  source: b0648ba8-871e-4418-829b-a67a6923abab
-  target: caa41565-299c-4086-99d7-7bf04bf62e51
-- canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   id: 18a73039-1b54-43bb-b6fe-5e983666d2de
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   source: fe60f4c3-a15d-41de-a3f3-71e6ae32297b
   target: 0ed1ec5e-dbf7-4c41-971a-e1630c16d84b
-- canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
-  id: 271764af-3b9b-40e6-a958-027dbc528a1a
-  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  source: caa41565-299c-4086-99d7-7bf04bf62e51
-  target: 19ddc02f-82d0-4745-97cd-184f98b3d0c4
 - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   id: 65f82758-c0d4-4a02-bdd6-1dbfd55e9b88
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
@@ -205,6 +177,11 @@ edges:
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   source: e70f1cf8-80e9-491c-9043-898fb37f4b32
   target: b0648ba8-871e-4418-829b-a67a6923abab
+- canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  id: 98613489-9e0e-4bd9-9184-e6aff5b9f98e
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  source: b0648ba8-871e-4418-829b-a67a6923abab
+  target: 19ddc02f-82d0-4745-97cd-184f98b3d0c4
 - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   id: c3a40e0b-3f1e-4368-85d3-a26af3638e2a
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155

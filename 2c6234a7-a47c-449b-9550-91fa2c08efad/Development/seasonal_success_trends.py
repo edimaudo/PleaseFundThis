@@ -1,20 +1,22 @@
+##=====================
 # Performance Trends and Comparisons
+##=====================
 
+####################
 ## Trend over time Month
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 df['date_launched'] = pd.to_datetime(df['date_launched'], errors='coerce')
 df['Month'] = df['date_launched'].dt.month_name()
 df['success_numeric'] = df['project_success'].astype(int)
 
-# Group and calculate percent
 seasonal_df = df.groupby('Month')['success_numeric'].mean().reset_index()
 seasonal_df['Success_Rate_Pct'] = seasonal_df['success_numeric'] * 100
 
 month_order = ['January', 'February', 'March', 'April', 'May', 'June', 
                'July', 'August', 'September', 'October', 'November', 'December']
 
-# 2. Plotly Bar Chart
 fig_monthly_bar = px.bar(
     seasonal_df, 
     x='Month', 
@@ -30,19 +32,13 @@ fig_monthly_bar = px.bar(
 fig_monthly_bar.update_layout(title_x=0.5, showlegend=False,title_font_size=20,template='plotly_white')
 fig_monthly_bar.show()
 
+####################
 ## Launch window bar chart day of week
-# 3. Extract Day of Week
+####################
 df['Day_of_Week'] = df['date_launched'].dt.day_name()
-
-# 4. Aggregate
-# We calculate the mean (success rate) for each day
 day_df = df.groupby('Day_of_Week')['success_numeric'].mean().reset_index()
 day_df['Success_Rate_Pct'] = day_df['success_numeric'] * 100
-
-# Define standard week order
 week_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-
-# 5. Create Plotly Bar Chart
 fig_daily = px.bar(
     day_df, 
     x='Day_of_Week', 
@@ -54,8 +50,6 @@ fig_daily = px.bar(
     template='plotly_white',
     labels={'Success_Rate_Pct': 'Success Rate (%)', 'Day_of_Week': 'Day of Launch'}
 )
-
-# 6. Styling
 fig_daily.update_layout(
     title_font_size=20,
     title_x=0.5,
@@ -65,14 +59,15 @@ fig_daily.update_layout(
 
 fig_daily.show()
 
+####################
 ## Comparison between goal $ and amount pledged
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 # Clean currency columns
 for col in ['goal_$', 'amt_pledged_$']:
     df[col] = pd.to_numeric(df[col].astype(str).str.replace(r'[$,]', '', regex=True), errors='coerce')
 
-# 2. Aggregate by Major Category
 # We use MEDIAN to find the 'typical' experience for each category
 df_cat = df.groupby('major_category').agg({
     'goal_$': 'median',
@@ -82,10 +77,8 @@ df_cat = df.groupby('major_category').agg({
 # Sort by Pledged amount for a cleaner "ladder" visual
 df_cat = df_cat.sort_values('amt_pledged_$')
 
-# 3. Build the Figure
 fig_cat_dumbbell = go.Figure()
 
-# Add the "Connector Lines"
 for i, row in df_cat.iterrows():
     fig_cat_dumbbell.add_trace(go.Scatter(
         x=[row['goal_$'], row['amt_pledged_$']],
@@ -116,11 +109,11 @@ fig_cat_dumbbell.add_trace(go.Scatter(
     hovertemplate="Typical Pledged: $%{x:,.0f}<extra></extra>"
 ))
 
-# 4. Styling
 fig_cat_dumbbell.update_layout(
     title='The "Funding Gap" by Category',
-    xaxis_title='Amount ($) - Log Scale',
+    xaxis_title='Amount ($)', # - Log Scale'
     yaxis_title=None,
+    title_x=0.5,
     template='plotly_white',
       title_font_size=20,
     xaxis_type='log',
@@ -136,7 +129,9 @@ fig_cat_dumbbell.update_xaxes(
 
 fig_cat_dumbbell.show()
 
+####################
 ## analyze top 20 projects in a similar way
+####################
 df = pd.read_csv('PleaseFundThis.csv')
 df.columns = df.columns.str.strip()
 # Calculate the 'overfunding' amount and select Top 20 for readability
@@ -175,11 +170,11 @@ fig_dumbbell.add_trace(go.Scatter(
     hovertemplate="<b>%{y}</b><br>Pledged: $%{x:,.0f}<extra></extra>"
 ))
 
-# 5. Styling
+
 fig_dumbbell.update_layout(
     title='Magnitude of Overfunding: Top 20 Most Successful Projects',
     title_x=0.5,
-    xaxis_title='Funding Amount ($) - Log Scale',
+    xaxis_title='Funding Amount ($)', ## log scale
     yaxis_title=None,
     template='plotly_white',
     xaxis_type='log', # Log scale allows us to see different orders of magnitude
