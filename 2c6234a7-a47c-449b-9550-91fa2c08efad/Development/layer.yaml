@@ -82,16 +82,17 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Prepares crowdfunding data for predictive modeling by cleaning columns,
-    encoding categorical/boolean variables, scaling continuous features, and training
-    8 ML classifiers plus ensemble model to predict project success.
+  description: Cleans crowdfunding data (dates, features, duplicates), encodes categorical
+    variables (day/category/region), scales numeric features using MinMax normalization,
+    then trains & evaluates 4 classifiers (Random Forest, Gradient Boosting, Decision
+    Tree, Bagging) to predict project success with 99.8% test accuracy.
   height: 1000
   id: 987079e5-970a-45a1-863e-c906cde149a2
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   name: prepare_predictive_model
   parent_id: null
   properties: {}
-  status: 4
+  status: 1
   type: 1
   variables: null
   width: 1600
@@ -120,9 +121,10 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Loads crowdfunding project data, removes unnamed columns and null rows,
-    cleans column names, verifies data types, and extracts date components (day, year,
-    month) for temporal analysis on 17.9k records.
+  description: Loads crowdfunding data from CSV, removes unnamed columns and rows
+    with missing values, converts date fields to datetime format, and extracts temporal
+    features (day of week, year, month) for analysis. Results in cleaned 17.9k-row
+    dataset.
   height: 1000
   id: e70f1cf8-80e9-491c-9043-898fb37f4b32
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155

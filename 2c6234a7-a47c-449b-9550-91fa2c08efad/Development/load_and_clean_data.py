@@ -1,5 +1,7 @@
 ## Load data
 df = pd.read_csv('PleaseFundThis.csv')
+# Clean column names immediately 
+df.columns = df.columns.str.strip()
 #check data
 print(df.head())
 print(" ")
@@ -10,8 +12,7 @@ print(" ")
 print(df.columns.tolist())
 # Remove unames columns
 df = df.drop(['Unnamed: 23','Unnamed: 24','Unnamed: 25','Unnamed: 26','Unnamed: 27','Unnamed: 28','Unnamed: 29'], axis=1) #drop unnamed columns
-# Clean column names immediately 
-df.columns = df.columns.str.strip()
+
 # Check data types
 print(df.dtypes)
 print(" ")

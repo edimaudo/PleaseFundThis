@@ -30,7 +30,6 @@ df['project_has_pledge_rewards'] = df['project_has_pledge_rewards'].replace({"No
 # split categorical variables
 df_cat = df[['major_category','region','week_name']]
 df_cat = pd.get_dummies(df_cat, columns=['major_category','region','week_name'], drop_first=False)
-df_cat.reset_index(drop=True, inplace=True)
 # cts
 scaler = preprocessing.MinMaxScaler()
 df_cts = df[['duration_days',
@@ -56,45 +55,70 @@ df_cts = pd.DataFrame(df_cts, columns=['duration_days',
  'project_has_pledge_rewards',
  'year',
  'month'])
-df_cts.reset_index(drop=True, inplace=True)
 
-df['project_success'].reset_index(drop=True, inplace=True)
 
-# combine
-df = pd.concat([df_cts, df_cat,df['project_success']], axis=1)
-print(df.shape)
-train=df.sample(frac=0.8,random_state=200) # random state is a seed value
-test=df.drop(train.index)
-# train
-features=train.iloc[:,0:166]
+df_cts = df_cts.reset_index(drop=True)
+df_cat = df_cat.reset_index(drop=True)
+target_col = df['project_success'].astype(int).reset_index(drop=True)
+df_final = pd.concat([df_cts, df_cat, target_col], axis=1)
+train = df_final.sample(frac=0.8, random_state=200)
+test = df_final.drop(train.index)
+
+# 4. Features & Target
+features = train.drop('project_success', axis=1)
 target = train['project_success']
-Name=[]
-Accuracy=[]
-model1=LogisticRegression(random_state=22,C=0.000000001,solver='liblinear',max_iter=200)
-model2=GaussianNB()
-model3=RandomForestClassifier(n_estimators=200,random_state=22)
-model4=GradientBoostingClassifier(n_estimators=200)
-model5=KNeighborsClassifier()
-model6=DecisionTreeClassifier()
-model7=LinearDiscriminantAnalysis()
-model8=BaggingClassifier()
-Ensembled_model=VotingClassifier(estimators=[('lr', model1), ('gn', model2), ('rf', model3),('gb',model4),('kn',model5),('dt',model6),('lda',model7), ('bc',model8)], voting='hard')
-for model, label in zip([model1, model2, model3, model4,model5,model6,model7,model8,Ensembled_model], ['Logistic Regression','Naive Bayes','Random Forest', 'Gradient Boosting','KNN','Decision Tree','LDA', 'Bagging Classifier', 'Ensemble']):
-     scores = cross_val_score(model, features, target, cv=5, scoring='accuracy')
-     Accuracy.append(scores.mean())
-     Name.append(model.__class__.__name__)
-     print("Accuracy: %f of model %s" % (scores.mean(),label))
+
+models = {
+    #'Logistic Regression': LogisticRegression(random_state=22, C=1e-9, solver='liblinear', max_iter=200),
+    #'Naive Bayes': GaussianNB(),
+    'Random Forest': RandomForestClassifier(n_estimators=200, random_state=22),
+    'Gradient Boosting': GradientBoostingClassifier(n_estimators=200),
+    #'KNN': KNeighborsClassifier(),
+    'Decision Tree': DecisionTreeClassifier(),
+    #'LDA': LinearDiscriminantAnalysis(),
+    'Bagging Classifier': BaggingClassifier()
+}
+
+# Create Ensemble
+#ensemble_members = [(name.lower()[:2], m) for name, m in models.items()]
+#models['Ensemble'] = VotingClassifier(estimators=ensemble_members, voting='hard')
+
+# 6. Execution Loop
+print(f"{'Model':<25} | {'Accuracy':<10}")
+print("-" * 40)
+
+for label, model in models.items():
+    # cv=5 and scoring='accuracy'
+    scores = cross_val_score(model, features, target, cv=5, scoring='accuracy')
+    mean_score = scores.mean()
+    print(f"{label:<25} | {mean_score:.4f}")
+
+## testing
+test_features = test.drop('project_success', axis=1)
+test_target = test['project_success'].astype(int)
+print(" ")
+print(f"{'Model':<20} | {'Test Accuracy':<15} | {'Avg Precision':<15}")
+print("-" * 55)
 
 
-# #apply on test
-# from sklearn.metrics import accuracy_score
-# classifers=[model3,model4,model6,model8]
-# out_sample_accuracy=[]
-# Name_2=[]
-# for each in classifers:
-#     fit=each.fit(features,target)
-#     pred=fit.predict(test.iloc[:,0:166])
-#     accuracy=accuracy_score(test['project_success'],pred)
-#     Name_2.append(each.__class__.__name__)
-#     out_sample_accuracy.append(accuracy)
 
+for name, model in models.items():
+    # Fit the model using the training features and target
+    model.fit(features, target)
+    
+    # Predict on the test set
+    pred = model.predict(test_features)
+    
+    # Calculate Metrics
+    acc = accuracy_score(test_target, pred)
+    avg_prec = average_precision_score(test_target, pred)
+    
+    print(f"{name:<20} | {acc:.4f}          | {avg_prec:.4f}")
+
+print(" ")
+print("Confusion Matrix:")
+print(confusion_matrix(test_target, pred))
+print(" ")
+print(" ")
+print("\nClassification Report:")
+print(classification_report(test_target, pred))
