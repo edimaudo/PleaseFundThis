@@ -17,7 +17,7 @@ fig_anchors = px.histogram(
 fig_anchors.update_layout(
     title_x=0.5,
     xaxis_title="Funding Goal Amount ($)",
-    yaxis_title="Frequency (Number of Projects)",
+    yaxis_title="Number of Projects",
     bargap=0.1,
     xaxis=dict(
         tickvals=[0, 1000, 5000, 10000, 20000, 25000, 50000, 75000, 100000],

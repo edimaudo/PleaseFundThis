@@ -28,8 +28,10 @@ fig_keywords = px.bar(
 fig_keywords.update_layout(
     yaxis={'categoryorder':'total ascending'}, 
     title_x=0.5,
-    showlegend=False,
+    xaxis_title="Keyword Count",
     height=700
 )
+
+
 
 fig_keywords.show()

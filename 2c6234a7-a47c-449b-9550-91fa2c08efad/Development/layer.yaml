@@ -13,10 +13,10 @@ blocks:
   height: 1000
   id: 0332ba80-64c5-4937-b8c6-844e4499c61b
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_6
+  name: facebook_social_proof_analysis
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -25,14 +25,34 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: ''
+  description: Analyzes funding lift by comparing pledged amounts for projects with
+    and without video assets, visualizing success vs. failure rates through grouped
+    box plots to demonstrate video impact on campaign outcomes.
+  height: 1000
+  id: 04bb72f4-0ab4-4171-a9ae-eeb9062316b7
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  name: funding_video_lift_analysis
+  parent_id: null
+  properties: {}
+  status: 3
+  type: 1
+  variables: null
+  width: 1600
+  x: 0
+  y: -2000
+- auto_size: false
+  canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  compute_settings: null
+  description: Visualizes failed campaigns as a density heatmap showing the relationship
+    between campaign duration and funding goals, highlighting high-risk combinations
+    of short timelines with ambitious targets.
   height: 1000
   id: 0618b11c-2e3d-4930-8280-40c97b08431e
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_10
+  name: failed_projects_danger_heatmap
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -41,14 +61,16 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: ''
+  description: "Visualizes the relationship between Facebook friend counts and crowdfunding\
+    \ project success using a strip plot, comparing successful vs. unsuccessful projects\
+    \ (filtered to \u226410K friends)."
   height: 1000
   id: 0b7f680f-7a2e-4b96-8973-017cef984825
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_11
+  name: facebook_friends_success_plot
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -67,7 +89,7 @@ blocks:
   name: seasonal_success_trends
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -76,16 +98,16 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: 'Analyzes crowdfunding success drivers through 8 interactive visualizations:
-    correlation heatmap, project updates ROI, video/Facebook impact on funding, personal
-    network effects, campaign duration-goal risk analysis, and backer value by category.'
+  description: Cleans currency data and generates an interactive correlation heatmap
+    showing which project metrics (pledges, updates, video presence, etc.) drive funding
+    success and project outcomes.
   height: 1000
   id: 1ec56b5b-da47-43ef-9fd8-c0eb55134732
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   name: correlation_heatmap_analysis
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -94,16 +116,16 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Visualizes the distribution of project funding goals ($0-$100k) as
-    a histogram with 500 bins to reveal clustering patterns and psychological anchoring
-    effects, highlighting peaks at $5k and $10k.
+  description: "Visualizes the distribution of funding goal amounts ($0\u2013$100k)\
+    \ as a histogram with 500 bins to reveal funding goal patterns and anchoring effects,\
+    \ highlighting key peaks at $5k and $10k."
   height: 1000
   id: 483d44d1-574b-426d-8833-678c2eb06e4b
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   name: goal_anchoring_histogram
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -112,16 +134,15 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Compares median fundraising goals vs. pledged amounts by category using
-    a dumbbell chart, revealing funding gaps across project categories on a logarithmic
-    scale.
+  description: Visualizes the "funding gap" between median campaign goals and pledged
+    amounts across crowdfunding categories using a dumbbell chart with log-scale comparison.
   height: 1000
   id: 489ecfdd-ae9e-4cd4-83da-ff60f57c0c48
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_1
+  name: funding_gap_dumbbell_chart
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -136,10 +157,10 @@ blocks:
   height: 1000
   id: 517ae2a7-f63d-445e-9ebf-3dc7ac8482ce
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_13
+  name: category_funding_treemap
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -165,35 +186,34 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: 'Generates 7 interactive visualizations analyzing crowdfunding project
-    outcomes: Sankey flow from category to success, parallel categories for video/Facebook
-    influence, success rates by project type (whales vs crowd), and pledge reward
-    distributions for entry-level and premium tiers.'
+  description: Visualizes entry-level pledge reward amounts ($0-$10K) using violin
+    plots to compare the distribution between successful and unsuccessful crowdfunding
+    projects.
   height: 1000
-  id: 60f305c5-abb4-4997-9901-6b5d0323ba72
+  id: 61c0d7c1-dcef-49c7-a472-cbaf8f41a5e8
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: sankey_outcome_flow
+  name: pledge_rewards_density_viz
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
   x: 0
-  y: 1000
+  y: 500
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Creates a ridge plot (mountain range visualization) showing the distribution
-    of goal funding amounts across major project categories on a logarithmic scale,
-    with color-coded violin plots for each category.
+  description: Creates a ridge plot visualizing funding goal distributions across
+    major project categories on a logarithmic scale, using color-coded violin charts
+    to show comparative patterns.
   height: 1000
   id: 779e21fd-2c10-4348-8390-75b4f77aa089
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_15
+  name: goal_distribution_ridge
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -226,10 +246,10 @@ blocks:
   height: 1000
   id: 8f9dc00d-144a-4189-9ff8-1cc155aa5d55
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_16
+  name: pledgers_category_treemap
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -250,7 +270,7 @@ blocks:
   name: prepare_predictive_model
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -259,14 +279,16 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: ''
+  description: Analyzes average pledge amounts per backer by project category and
+    success status, then visualizes as a grouped bar chart to identify which categories
+    attract higher-value pledges for successful vs. failed projects.
   height: 1000
   id: 9eb7f8d3-049a-44e4-bbe3-bf92cec29fcb
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_9
+  name: backer_value_index
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -275,14 +297,16 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: ''
+  description: Creates a grouped box plot comparing pledge amounts between successful
+    and failed projects, segmented by Facebook page presence to analyze social media's
+    impact on fundraising.
   height: 1000
   id: a29ead76-6e69-4ae7-b3c5-2982c828ce73
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_12
+  name: facebook_pledge_analysis
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -291,16 +315,15 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Creates a horizontal bar chart ranking major project categories by
-    total pledged funding, with values displayed on bars and sorted in descending
-    order.
+  description: Aggregates pledges by major category and visualizes total funding amounts
+    in a horizontal bar chart, ranked from highest to lowest contribution.
   height: 1000
   id: a2a51cbb-4fdf-4091-b7be-b065af9a4b26
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_17
+  name: major_category_funding_ranking
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -309,16 +332,34 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Creates a dumbbell chart comparing funding goals vs. pledged amounts
-    for the 20 most overfunded projects, using log scale to visualize funding magnitude
-    differences.
+  description: Creates a dumbbell chart comparing goal vs. pledged amounts for the
+    top 20 most overfunded projects, visualized on a logarithmic scale to highlight
+    funding gaps across different magnitudes.
   height: 1000
   id: b1235f0c-a254-4efc-89c8-d0509fdfbbb7
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block
+  name: analyze_top_overfunded_projects
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
+  type: 1
+  variables: null
+  width: 1600
+  x: 0
+  y: 500
+- auto_size: false
+  canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  compute_settings: null
+  description: Segments crowdfunding projects into 4 types (Unicorns, Crowd, Whales,
+    Baseline) based on backer count and pledge value, then visualizes success rates
+    by segment to identify which funding strategy performs best.
+  height: 1000
+  id: b17fe073-76cb-454c-8bbd-5f5c722d1430
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  name: whales_vs_crowd_success
+  parent_id: null
+  properties: {}
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -334,10 +375,10 @@ blocks:
   height: 1000
   id: b4fafcea-38a3-4d95-a9d1-8bd7d43afdb4
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_5
+  name: engagement_elasticity_analysis
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -352,10 +393,10 @@ blocks:
   height: 1000
   id: b77e6c3f-c049-4f76-803c-ecad9b7b22c9
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_7
+  name: branding_anchor_effect
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -365,15 +406,15 @@ blocks:
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
   description: Segments creators into four personas (Stars, Boutiques, Plowhorses,
-    Struggles) based on median thresholds of average pledge amount and backer count,
-    visualizing profitability positioning in an interactive log-scale quadrant chart.
+    Struggles) based on pledge volume vs. average contribution value, visualized on
+    a log-scale scatter plot to guide pricing and marketing strategy.
   height: 1000
   id: bd453801-57ef-4497-b852-9b062d86f2f3
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_8
+  name: creator_persona_quadrant
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -399,16 +440,70 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Cleans city and success data, calculates success rates by city for
-    projects with 10+ outcomes, and displays the top 20 cities ranked by success rate
-    in a horizontal bar chart.
+  description: Analyzes project success rates by city, standardizes city names, calculates
+    success metrics (count and percentage), filters for cities with 10+ outcomes,
+    and displays the top 20 as a horizontal bar chart sorted by success rate.
   height: 1000
   id: bef3a112-f2af-4c59-be58-d5e9214e4d2b
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_3
+  name: city_success_rate
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
+  type: 1
+  variables: null
+  width: 1600
+  x: 0
+  y: 500
+- auto_size: false
+  canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  compute_settings: null
+  description: "Visualizes the distribution of high-tier pledge rewards (\u2264$10K)\
+    \ across successful vs unsuccessful projects using side-by-side violin plots with\
+    \ box plots and mean lines."
+  height: 1000
+  id: c1bb914b-98dd-411c-b4d2-7b8da508425e
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  name: pledge_reward_density_viz
+  parent_id: null
+  properties: {}
+  status: 3
+  type: 1
+  variables: null
+  width: 1600
+  x: 0
+  y: 500
+- auto_size: false
+  canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  compute_settings: null
+  description: Visualizes the relationship between project communication frequency
+    (updates) and funding success, comparing successful vs. unsuccessful crowdfunding
+    projects across different funding percentages.
+  height: 1000
+  id: c3237d63-bc76-41b0-99de-38249a49bf22
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  name: roi_communication_scatter
+  parent_id: null
+  properties: {}
+  status: 3
+  type: 1
+  variables: null
+  width: 1600
+  x: 0
+  y: -2500
+- auto_size: false
+  canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  compute_settings: null
+  description: Creates an interactive parallel categories diagram showing how video
+    presence and Facebook page existence influence project success rates, with color-coded
+    paths from red (failed) to green (successful).
+  height: 1000
+  id: c3c0b016-9688-4be8-946b-ab042ee0492f
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  name: parallel_categories_success_paths
+  parent_id: null
+  properties: {}
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -418,15 +513,15 @@ blocks:
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
   description: Extracts and visualizes the top 25 keywords from successful project
-    titles, filtering out common stopwords to identify recurring terms in funded projects.
-    Creates a horizontal bar chart ordered by keyword frequency.
+    titles by filtering stopwords and counting term frequency. Displays results in
+    a horizontal bar chart sorted by keyword prevalence.
   height: 1000
   id: d25d2bd1-851b-49a9-b372-4c2c0a0f6d2c
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   name: successful_project_keywords
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -459,10 +554,10 @@ blocks:
   height: 1000
   id: de83625b-cbc2-4599-87ee-b0f407d06fde
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_4
+  name: overachiever_project_analysis
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -481,7 +576,7 @@ blocks:
   name: load_and_clean_data
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -490,15 +585,33 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Analyzes launch success rates by day of week and creates an interactive
-    bar chart showing which days have the highest mission success rates.
+  description: "Creates an interactive Sankey diagram showing project flow from major\
+    \ categories \u2192 top 30 minor categories \u2192 success/failure outcomes, with\
+    \ color-coded paths (green for success, red for failure)."
+  height: 1000
+  id: ed789d1d-5d47-465a-ad51-6b5a4015d0bc
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  name: sankey_category_flow
+  parent_id: null
+  properties: {}
+  status: 3
+  type: 1
+  variables: null
+  width: 1600
+  x: 0
+  y: 500
+- auto_size: false
+  canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  compute_settings: null
+  description: Calculates and visualizes launch success rates by day of the week as
+    a bar chart with color-coded percentages.
   height: 1000
   id: f28d3e7d-5468-44e8-a813-c2d952a67a53
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_2
+  name: success_rate_by_day
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -507,15 +620,15 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Ranks and visualizes sub-categories by total pledged funding, displaying
-    results as a horizontal bar chart sorted from highest to lowest pledged amounts.
+  description: Ranks minor categories by total pledge amount and displays results
+    as a horizontal bar chart, ordered from highest to lowest funding.
   height: 1000
   id: fd857b18-624f-4ba6-a3c6-cfd3f5188642
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  name: python_block_14
+  name: minor_category_funding_rank
   parent_id: null
   properties: {}
-  status: 1
+  status: 3
   type: 1
   variables: null
   width: 1600
@@ -523,40 +636,50 @@ blocks:
   y: 500
 edges:
 - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
-  id: 037a3c47-a3f6-4be0-b4a0-929df0b65f57
-  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  source: 60f305c5-abb4-4997-9901-6b5d0323ba72
-  target: bd86db56-4dfa-4cb1-ae03-43140db717f4
-- canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   id: 0c4b7d94-5b2e-43c0-a6b3-50f5366fa7c2
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   source: 779e21fd-2c10-4348-8390-75b4f77aa089
   target: 483d44d1-574b-426d-8833-678c2eb06e4b
+- canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  id: 176ff59a-d044-48f5-9777-9260e0973f98
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  source: 61c0d7c1-dcef-49c7-a472-cbaf8f41a5e8
+  target: c1bb914b-98dd-411c-b4d2-7b8da508425e
+- canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  id: 1ad8964d-4925-4e3f-8f9f-27fb39b6e436
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  source: ed789d1d-5d47-465a-ad51-6b5a4015d0bc
+  target: c3c0b016-9688-4be8-946b-ab042ee0492f
 - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   id: 1e5e69cc-4587-4eae-8971-e4137765c86a
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   source: 8733a49a-a33f-4ff0-b716-70a079969937
   target: 517ae2a7-f63d-445e-9ebf-3dc7ac8482ce
 - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
-  id: 445a618c-708f-4dcf-b43f-a28f9e6c2c0c
+  id: 2eb7e7df-3429-447a-a66d-35f9d57f3b73
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  source: 1ec56b5b-da47-43ef-9fd8-c0eb55134732
-  target: a29ead76-6e69-4ae7-b3c5-2982c828ce73
+  source: b17fe073-76cb-454c-8bbd-5f5c722d1430
+  target: 61c0d7c1-dcef-49c7-a472-cbaf8f41a5e8
+- canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  id: 47d836d8-bd00-4c79-9fe8-cd13d194646e
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  source: 60cc71d2-a91f-4cef-82cf-d0266813fa49
+  target: ed789d1d-5d47-465a-ad51-6b5a4015d0bc
 - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   id: 49a439f3-24d3-4316-87f5-da5a6636827b
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   source: e70f1cf8-80e9-491c-9043-898fb37f4b32
   target: 8733a49a-a33f-4ff0-b716-70a079969937
 - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
-  id: 4af7bed8-366b-4b81-bdab-b8ad602f83e2
-  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
-  source: 60cc71d2-a91f-4cef-82cf-d0266813fa49
-  target: 60f305c5-abb4-4997-9901-6b5d0323ba72
-- canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   id: 55c7219e-9fd7-4d8b-90ea-4a033ba28e7e
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   source: fd857b18-624f-4ba6-a3c6-cfd3f5188642
   target: 8f9dc00d-144a-4189-9ff8-1cc155aa5d55
+- canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  id: 61521c1b-c695-40be-8fb8-a9d0365be962
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  source: 1ec56b5b-da47-43ef-9fd8-c0eb55134732
+  target: c3237d63-bc76-41b0-99de-38249a49bf22
 - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   id: 645a0d05-5692-40a8-9ba7-90cb2d4e9a94
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
@@ -598,15 +721,35 @@ edges:
   source: 483d44d1-574b-426d-8833-678c2eb06e4b
   target: d25d2bd1-851b-49a9-b372-4c2c0a0f6d2c
 - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  id: 793b63ca-3074-492d-892e-61948b316453
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  source: c3c0b016-9688-4be8-946b-ab042ee0492f
+  target: b17fe073-76cb-454c-8bbd-5f5c722d1430
+- canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   id: 7bc114eb-a304-4bce-ba9e-ca28b1f02bf2
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   source: bd86db56-4dfa-4cb1-ae03-43140db717f4
   target: 1ec56b5b-da47-43ef-9fd8-c0eb55134732
 - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  id: 817746d0-2023-4fe4-a0b0-f0d45052131f
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  source: c3237d63-bc76-41b0-99de-38249a49bf22
+  target: 04bb72f4-0ab4-4171-a9ae-eeb9062316b7
+- canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  id: 849486b5-c55d-410d-86c5-e37a1ab61ab3
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  source: 04bb72f4-0ab4-4171-a9ae-eeb9062316b7
+  target: a29ead76-6e69-4ae7-b3c5-2982c828ce73
+- canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   id: a35219cb-cf74-405b-80d4-613d563a68fe
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   source: e70f1cf8-80e9-491c-9043-898fb37f4b32
   target: 517ae2a7-f63d-445e-9ebf-3dc7ac8482ce
+- canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
+  id: a8e61717-21ff-4f3b-b0d9-083e5dc68222
+  layer_id: 5a668b14-f485-4001-8807-f07ccac50155
+  source: c1bb914b-98dd-411c-b4d2-7b8da508425e
+  target: bd86db56-4dfa-4cb1-ae03-43140db717f4
 - canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   id: af439937-ba9c-4d79-a4b5-4b6567a165e6
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
