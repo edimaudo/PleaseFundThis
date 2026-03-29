@@ -1,9 +1,6 @@
 ##=====================
 # Predictive Modeling
 ##=====================
-df = pd.read_csv('PleaseFundThis.csv')
-# Clean column names immediately 
-df.columns = df.columns.str.strip()
 # Date update
 df['date_launched'] = pd.to_datetime(df['date_launched'], dayfirst=True)
 # Use the correct method to get the day name
@@ -99,9 +96,6 @@ test_target = test['project_success'].astype(int)
 print(" ")
 print(f"{'Model':<20} | {'Test Accuracy':<15} | {'Avg Precision':<15}")
 print("-" * 55)
-
-
-
 for name, model in models.items():
     # Fit the model using the training features and target
     model.fit(features, target)

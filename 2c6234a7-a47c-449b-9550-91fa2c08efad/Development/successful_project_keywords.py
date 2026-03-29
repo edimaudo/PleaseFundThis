@@ -1,10 +1,8 @@
 ####################
-#### Word cloud ####
+## Word cloud 
 ####################
 from collections import Counter
 import re
-df = pd.read_csv('PleaseFundThis.csv')
-df.columns = df.columns.str.strip()
 successful_titles = df[df['project_success'] == True]['project_name'].astype(str).str.lower()
 # Define common "Stopwords" to filter out (the, and, for, etc.)
 stopwords = {'the', 'and', 'for', 'your', 'with', 'from', 'this', 'that', 'project', 'new', 'help', 'make'}
