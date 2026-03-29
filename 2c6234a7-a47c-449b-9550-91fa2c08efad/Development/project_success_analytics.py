@@ -132,6 +132,3 @@ fig_geo.update_layout(
 
 fig_geo.show()
 
-"""
-
-"""

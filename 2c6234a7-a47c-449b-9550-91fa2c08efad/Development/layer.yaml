@@ -6,9 +6,11 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Analyzes crowdfunding project success patterns by comparing overachievers,
-    winners, and failed projects across update frequency, pledge tier complexity,
-    and geographic performance to identify viral success drivers.
+  description: Analyzes crowdfunding project success patterns by segmenting projects
+    into success tiers (Overachievers 500%+, Standard Winners 100-499%, Failures <100%),
+    comparing average update frequency and reward tier counts. Visualizes geographic
+    success rates by city to identify correlation between communication strategy and
+    funding outcomes.
   height: 1000
   id: 0ed1ec5e-dbf7-4c41-971a-e1630c16d84b
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
@@ -80,16 +82,16 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Prepares a crowdfunding dataset for predictive modeling by removing
-    irrelevant columns, encoding categorical variables as binary/one-hot encoded features,
-    normalizing continuous variables, and splitting into train/test sets.
+  description: Prepares crowdfunding data for predictive modeling by cleaning columns,
+    encoding categorical/boolean variables, scaling continuous features, and training
+    8 ML classifiers plus ensemble model to predict project success.
   height: 1000
   id: 987079e5-970a-45a1-863e-c906cde149a2
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   name: prepare_predictive_model
   parent_id: null
   properties: {}
-  status: 1
+  status: 4
   type: 1
   variables: null
   width: 1600
@@ -118,17 +120,16 @@ blocks:
 - auto_size: false
   canvas_id: 2c6234a7-a47c-449b-9550-91fa2c08efad
   compute_settings: null
-  description: Loads Kickstarter campaign data from CSV, removes unnamed columns,
-    cleans column names, drops rows with missing values, and converts launch dates
-    to datetime format to extract temporal features (day, month, year). Processes
-    28k+ projects with 23 attributes before feature engineering.
+  description: Loads crowdfunding project data, removes unnamed columns and null rows,
+    cleans column names, verifies data types, and extracts date components (day, year,
+    month) for temporal analysis on 17.9k records.
   height: 1000
   id: e70f1cf8-80e9-491c-9043-898fb37f4b32
   layer_id: 5a668b14-f485-4001-8807-f07ccac50155
   name: load_and_clean_data
   parent_id: null
   properties: {}
-  status: 3
+  status: 1
   type: 1
   variables: null
   width: 1600
