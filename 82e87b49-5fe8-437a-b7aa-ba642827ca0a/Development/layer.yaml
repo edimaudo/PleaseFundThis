@@ -1,0 +1,252 @@
+id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+name: Development
+type: 1
+canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+blocks:
+- auto_size: false
+  canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  compute_settings: null
+  description: Section header introducing project success prediction analysis or modeling.
+  height: 1000
+  id: 03fff448-511a-493b-9c4c-78f0af7169d2
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  name: markdown_block_4
+  parent_id: null
+  properties: {}
+  status: 1
+  type: 4
+  variables: null
+  width: 1600
+  x: 0
+  y: 4500
+- auto_size: false
+  canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  compute_settings: null
+  description: 'Load and inspect crowdfunding CSV data: clean column names, remove
+    unnamed columns, display summaries and data types, and check for missing values
+    across the dataset.'
+  height: 1000
+  id: 1ddc7f7f-2d74-4e0f-8a34-a767458886cd
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  name: load_clean_explore_data
+  parent_id: null
+  properties: {}
+  status: 3
+  type: 1
+  variables: null
+  width: 1600
+  x: 0
+  y: 0
+- auto_size: false
+  canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  compute_settings: null
+  description: Prepares crowdfunding project data and evaluates classification models
+    (Random Forest, Gradient Boosting, Decision Tree, Bagging) to predict project
+    success using cross-validation and test set metrics.
+  height: 1000
+  id: 23476f8a-14d3-4426-b343-410b2d260cc4
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  name: predictive_modeling_classification
+  parent_id: null
+  properties: {}
+  status: 3
+  type: 1
+  variables: null
+  width: 1600
+  x: 0
+  y: 5000
+- auto_size: false
+  canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  compute_settings: null
+  description: 'Analyzes project funding success patterns through multiple visualizations:
+    Sankey diagrams tracking flow from category to outcome, parallel categories showing
+    video/Facebook impact, success rate comparison by project type (whales vs. crowd),
+    and violin plots comparing pledge reward distributions between successful and
+    failed projects.'
+  height: 1000
+  id: 2d6e3695-6bd8-49de-a0eb-cc50fb5b3be6
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  name: kickstarter_flow_analysis
+  parent_id: null
+  properties: {}
+  status: 3
+  type: 1
+  variables: null
+  width: 1600
+  x: 0
+  y: 3000
+- auto_size: false
+  canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  compute_settings: null
+  description: Markdown header introducing a section on analyzing and comparing performance
+    metrics over time and across different dimensions.
+  height: 1000
+  id: 2ee94fe8-795a-4941-bd5a-9da43b8b25ce
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  name: markdown_block_1
+  parent_id: null
+  properties: {}
+  status: 1
+  type: 4
+  variables: null
+  width: 1600
+  x: 0
+  y: 1500
+- auto_size: false
+  canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  compute_settings: null
+  description: Section header introducing flow and distribution analysis or visualization
+    content below.
+  height: 1000
+  id: 4d035a4b-214b-4e1e-9ba5-101e1a512087
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  name: markdown_block_2
+  parent_id: null
+  properties: {}
+  status: 1
+  type: 4
+  variables: null
+  width: 1600
+  x: 0
+  y: 2500
+- auto_size: false
+  canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  compute_settings: null
+  description: Section header that introduces success drivers and key performance
+    indicators for analysis or tracking.
+  height: 1000
+  id: 67f061f1-5631-46b4-a35c-c8893941a7c9
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  name: markdown_block_3
+  parent_id: null
+  properties: {}
+  status: 1
+  type: 4
+  variables: null
+  width: 1600
+  x: 0
+  y: 3500
+- auto_size: false
+  canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  compute_settings: null
+  description: Section header for analyzing category performance and market trends
+    data.
+  height: 1000
+  id: ac5a7808-0998-4e7c-bd1b-3e99b84ebae0
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  name: markdown_block
+  parent_id: null
+  properties: {}
+  status: 1
+  type: 4
+  variables: null
+  width: 1600
+  x: 0
+  y: 500
+- auto_size: false
+  canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  compute_settings: null
+  description: 'Analyzes crowdfunding success drivers through multiple interactive
+    visualizations: correlation heatmap of success factors, impact of project updates
+    and videos on funding, social media influence, and engagement ROI. Identifies
+    key patterns for campaign optimization.'
+  height: 1000
+  id: c2e72029-45c4-4801-b55f-8c00eabe46d0
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  name: crowdfunding_success_analysis
+  parent_id: null
+  properties: {}
+  status: 3
+  type: 1
+  variables: null
+  width: 1600
+  x: 0
+  y: 4000
+- auto_size: false
+  canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  compute_settings: null
+  description: Analyzes crowdfunding project performance trends across seasons, days
+    of week, and project categories. Visualizes funding success rates by launch timing
+    and displays goal vs. pledged amount comparisons using dumbbell charts to identify
+    overfunding patterns.
+  height: 1000
+  id: c3eff89b-725a-4aee-aa83-c578a62659d8
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  name: crowdfunding_performance_analysis
+  parent_id: null
+  properties: {}
+  status: 3
+  type: 1
+  variables: null
+  width: 1600
+  x: 0
+  y: 2000
+- auto_size: false
+  canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  compute_settings: null
+  description: Visualizes crowdfunding campaign analysis across categories, pledgers,
+    funding goals, and creator personas using interactive treemaps, bar charts, histograms,
+    and scatter plots to identify funding patterns and success drivers.
+  height: 1000
+  id: d35c5ca8-cb8f-492c-9a79-696055eb0cd4
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  name: category_funding_analysis
+  parent_id: null
+  properties: {}
+  status: 3
+  type: 1
+  variables: null
+  width: 1600
+  x: 0
+  y: 1000
+edges:
+- canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  id: 1cb5a2df-bc6b-496f-8d8e-063850671fb5
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  source: 1ddc7f7f-2d74-4e0f-8a34-a767458886cd
+  target: ac5a7808-0998-4e7c-bd1b-3e99b84ebae0
+- canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  id: 2c60e155-f530-40e0-914e-893dec5dab24
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  source: 2ee94fe8-795a-4941-bd5a-9da43b8b25ce
+  target: c3eff89b-725a-4aee-aa83-c578a62659d8
+- canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  id: 43547b09-71ed-42ad-8132-d52e9df9b44d
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  source: ac5a7808-0998-4e7c-bd1b-3e99b84ebae0
+  target: d35c5ca8-cb8f-492c-9a79-696055eb0cd4
+- canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  id: 4909b18f-0099-4063-b965-da1c172096d7
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  source: 2d6e3695-6bd8-49de-a0eb-cc50fb5b3be6
+  target: 67f061f1-5631-46b4-a35c-c8893941a7c9
+- canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  id: bf0c70d0-3264-45d5-b27f-0694f3bcf698
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  source: 03fff448-511a-493b-9c4c-78f0af7169d2
+  target: 23476f8a-14d3-4426-b343-410b2d260cc4
+- canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  id: d37f8bb3-4f08-407d-b835-9c77cd2e88d2
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  source: 67f061f1-5631-46b4-a35c-c8893941a7c9
+  target: c2e72029-45c4-4801-b55f-8c00eabe46d0
+- canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  id: d957c772-6801-4e93-94a5-88da7842e871
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  source: 4d035a4b-214b-4e1e-9ba5-101e1a512087
+  target: 2d6e3695-6bd8-49de-a0eb-cc50fb5b3be6
+- canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  id: ea71a5e9-9ea3-46b3-98ae-d6cd85f642f4
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  source: d35c5ca8-cb8f-492c-9a79-696055eb0cd4
+  target: 2ee94fe8-795a-4941-bd5a-9da43b8b25ce
+- canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  id: ec57f7b0-e541-497d-b9e8-57d45e927fdd
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  source: c2e72029-45c4-4801-b55f-8c00eabe46d0
+  target: 03fff448-511a-493b-9c4c-78f0af7169d2
+- canvas_id: 82e87b49-5fe8-437a-b7aa-ba642827ca0a
+  id: ef6d333c-1eec-4894-93e4-97b79e7c9fc3
+  layer_id: 073e47a5-35b0-4733-a5ab-e2b1731eb931
+  source: c3eff89b-725a-4aee-aa83-c578a62659d8
+  target: 4d035a4b-214b-4e1e-9ba5-101e1a512087
